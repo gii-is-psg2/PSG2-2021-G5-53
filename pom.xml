@@ -67,9 +67,22 @@
           </roles>
         </developer>
         
-    </developers>
+
     
+    <developer>
+          <id>pabmatang</id>
+          <name>Pablo Mateos Angulo</name>
+          <email>pabmatang@alum.us.es</email>
+          <organization>PSG2-2021-G5-53</organization>
+          <roles>
+            <role>Developer</role>
+          </roles>
+        </developer>
+        
     
+     </developers>
+     
+     
     <name>petclinic</name>
 
     <properties>
