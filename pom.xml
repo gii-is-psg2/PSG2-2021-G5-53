@@ -6,7 +6,7 @@
     <groupId>es.us.psg2</groupId>
     <artifactId>spring-petclinic.psg2.2021-G5-53</artifactId>
     <version>1.0.0</version>
-    <name>PSG2-2021-G5-53 Petclinic</name>
+
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -84,7 +84,7 @@
      </developers>
      
      
-    <name>petclinic</name>
+    <name>PSG2-2021-G5-53 Petclinic</name>
 
     <properties>
 
