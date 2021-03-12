@@ -47,6 +47,16 @@
           </roles>
         </developer>
         
+          <developer>
+          <id>dierodcam</id>
+          <name>Diego Miguel Rodriguez Camino</name>
+          <email>dierodcam@alum.us.es</email>
+          <organization>PSG2-2021-G5-53</organization>
+          <roles>
+            <role>Developer</role>
+          </roles>
+        </developer>
+        
     </developers>
     
     
