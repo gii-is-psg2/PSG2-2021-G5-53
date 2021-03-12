@@ -37,6 +37,16 @@
           </roles>
         </developer>
         
+          <developer>
+          <id>joejac</id>
+          <name>Joe Scott George Jackson</name>
+          <email>joejac@alum.us.es</email>
+          <organization>PSG2-2021-G5-53</organization>
+          <roles>
+            <role>Developer</role>
+          </roles>
+        </developer>
+        
     </developers>
     
     
