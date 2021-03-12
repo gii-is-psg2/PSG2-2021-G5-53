@@ -59,6 +59,18 @@
         
     </developers>
     
+    <developer>
+          <id>jesrolcad</id>
+          <name>Jesús Roldán Cadena</name>
+          <email>jesrolcad@alum.us.es</email>
+          <organization>PSG2-2021-G5-53</organization>
+          <roles>
+            <role>Developer</role>
+          </roles>
+        </developer>
+        
+    </developers>
+    
     
     <name>petclinic</name>
 
