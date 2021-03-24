@@ -18,6 +18,7 @@ package org.springframework.samples.petclinic.repository;
 import java.util.Collection;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
@@ -59,5 +60,9 @@ public interface OwnerRepository extends Repository<Owner, Integer> {
 	 */	
 	@Query("SELECT owner FROM Owner owner left join fetch owner.pets WHERE owner.id =:id")
 	public Owner findById(@Param("id") int id);
+	
+	@Modifying
+	@Query("DELETE FROM Owner owner WHERE owner.id = :id")
+	void remove(@Param("id") Integer Id);
 
 }
