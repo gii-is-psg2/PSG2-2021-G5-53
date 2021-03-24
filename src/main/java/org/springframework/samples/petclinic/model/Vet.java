@@ -21,19 +21,16 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
 
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
-
 
 /**
  * Simple JavaBean domain object representing a veterinarian.
@@ -43,7 +40,6 @@ import org.springframework.beans.support.PropertyComparator;
  * @author Sam Brannen
  * @author Arjen Poutsma
  */
-
 @Entity
 @Table(name = "vets")
 public class Vet extends Person {
@@ -78,8 +74,5 @@ public class Vet extends Person {
 	public void addSpecialty(Specialty specialty) {
 		getSpecialtiesInternal().add(specialty);
 	}
-
-	
-	
 
 }
