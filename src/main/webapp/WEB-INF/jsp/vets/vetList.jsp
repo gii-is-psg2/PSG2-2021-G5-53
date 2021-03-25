@@ -3,8 +3,13 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
+<!--  >%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%-->
+
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 
 <petclinic:layout pageName="vets">
     <h2>Veterinarians</h2>
@@ -13,8 +18,11 @@
         <thead>
         <tr>
             <th>Name</th>
-            <th>Specialties</th>
-            <th>Delete</th>
+
+       <!--   <th>Specialties</th>--> 
+            <th>Actions</th>
+          <th>Delete</th>
+
         </tr>
         </thead>
         <tbody>
@@ -23,11 +31,16 @@
                 <td>
                     <c:out value="${vet.firstName} ${vet.lastName}"/>
                 </td>
-                <td>
+               <!--  <td>
                     <c:forEach var="specialty" items="${vet.specialties}">
                         <c:out value="${specialty.name} "/>
                     </c:forEach>
                     <c:if test="${vet.nrOfSpecialties == 0}">none</c:if>
+
+                </td>--> 
+                
+               <td><a href="/vets/${vet.id}/edit">Update</a> </td>
+
                 </td>
                 <td>
                     <spring:url value="vets/{vetId}/delete" var="vetUrlRemove">
@@ -39,6 +52,10 @@
         </c:forEach>
         </tbody>
     </table>
+    
+    <sec:authorize access="hasAuthority('admin')">
+		<a class="btn btn-default" href='<spring:url value="/vets/new" htmlEscape="true"/>'>Add Vet</a>
+	</sec:authorize>
 
     <table class="table-buttons">
         <tr>
