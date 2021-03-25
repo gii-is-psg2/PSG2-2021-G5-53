@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -108,6 +109,7 @@ public class VetController {
 		return vets;
 	}
 	
+
 	
 	@GetMapping(value = "/vets/{vetId}/edit")
 	public String initUpdateOwnerForm(@PathVariable("vetId") int vetId, Model model) {
@@ -138,8 +140,11 @@ public class VetController {
 //	}
 	
 	
-	
-	
-	
+	@GetMapping("/vets/{vetId}/delete")
+	public String deleteVet(@PathVariable ("vetId") int vetId,ModelMap model) {
+			this.vetService.removeVet(vetId);
+			return "redirect:/vets";
+	}
+
 
 }

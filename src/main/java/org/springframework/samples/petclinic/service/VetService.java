@@ -60,6 +60,7 @@ public class VetService {
 		return vetRepository.findAll();
 	}	
 	
+
 //	@Transactional(readOnly = true)
 //	public Collection<Specialty> findSpecialtyTypes(){
 //		return vetRepository.findSpecialtyTypes();
@@ -76,13 +77,9 @@ public class VetService {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
+	@Transactional
+	public void removeVet(Integer id) throws DataAccessException {
+		vetRepository.remove(id);
+	}
 
 }

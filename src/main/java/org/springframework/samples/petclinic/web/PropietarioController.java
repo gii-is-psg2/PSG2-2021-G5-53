@@ -28,7 +28,6 @@ import org.springframework.samples.petclinic.service.VetService;
 import org.springframework.samples.petclinic.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -41,14 +40,14 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Michael Isvy
  */
 @Controller
-public class OwnerController {
+public class PropietarioController {
 
-	private static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = "owners/createOrUpdateOwnerForm";
+	private static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = "owners/crearoActualizarPropietarioForm";
 
 	private final OwnerService ownerService;
 
 	@Autowired
-	public OwnerController(OwnerService ownerService, UserService userService, AuthoritiesService authoritiesService) {
+	public PropietarioController(OwnerService ownerService, UserService userService, AuthoritiesService authoritiesService) {
 		this.ownerService = ownerService;
 	}
 
@@ -57,14 +56,14 @@ public class OwnerController {
 		dataBinder.setDisallowedFields("id");
 	}
 
-	@GetMapping(value = "/owners/new")
+	@GetMapping(value = "/propietarios/nuevo")
 	public String initCreationForm(Map<String, Object> model) {
 		Owner owner = new Owner();
 		model.put("owner", owner);
 		return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
 	}
 
-	@PostMapping(value = "/owners/new")
+	@PostMapping(value = "/propietarios/nuevo")
 	public String processCreationForm(@Valid Owner owner, BindingResult result) {
 		if (result.hasErrors()) {
 			return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
@@ -72,17 +71,18 @@ public class OwnerController {
 		else {
 			//creating owner, user and authorities
 			this.ownerService.saveOwner(owner);
-			return "redirect:/owners/" + owner.getId();
+			
+			return "redirect:/propietarios" + owner.getId();
 		}
 	}
 
-	@GetMapping(value = "/owners/find")
+	@GetMapping(value = "/propietarios/encontrar")
 	public String initFindForm(Map<String, Object> model) {
 		model.put("owner", new Owner());
-		return "owners/findOwners";
+		return "owners/findOwners_es";
 	}
 
-	@GetMapping(value = "/owners")
+	@GetMapping(value = "/propietarios")
 	public String processFindForm(Owner owner, BindingResult result, Map<String, Object> model) {
 
 		// allow parameterless GET request for /owners to return all records
@@ -95,28 +95,28 @@ public class OwnerController {
 		if (results.isEmpty()) {
 			// no owners found
 			result.rejectValue("lastName", "notFound", "not found");
-			return "owners/findOwners";
+			return "owners/findOwners_es";
 		}
 		else if (results.size() == 1) {
 			// 1 owner found
 			owner = results.iterator().next();
-			return "redirect:/owners/" + owner.getId();
+			return "redirect:/propietarios/" + owner.getId();
 		}
 		else {
 			// multiple owners found
 			model.put("selections", results);
-			return "owners/ownersList";
+			return "owners/propietarioList";
 		}
 	}
 
-	@GetMapping(value = "/owners/{ownerId}/edit")
+	@GetMapping(value = "/propietarios/{ownerId}/editar")
 	public String initUpdateOwnerForm(@PathVariable("ownerId") int ownerId, Model model) {
 		Owner owner = this.ownerService.findOwnerById(ownerId);
 		model.addAttribute(owner);
 		return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
 	}
 
-	@PostMapping(value = "/owners/{ownerId}/edit")
+	@PostMapping(value = "/propietarios/{ownerId}/editar")
 	public String processUpdateOwnerForm(@Valid Owner owner, BindingResult result,
 			@PathVariable("ownerId") int ownerId) {
 		if (result.hasErrors()) {
@@ -125,7 +125,7 @@ public class OwnerController {
 		else {
 			owner.setId(ownerId);
 			this.ownerService.saveOwner(owner);
-			return "redirect:/owners/{ownerId}";
+			return "redirect:/propietarios/{ownerId}";
 		}
 	}
 
@@ -134,17 +134,11 @@ public class OwnerController {
 	 * @param ownerId the ID of the owner to display
 	 * @return a ModelMap with the model attributes for the view
 	 */
-	@GetMapping("/owners/{ownerId}")
+	@GetMapping("/propietarios/{ownerId}")
 	public ModelAndView showOwner(@PathVariable("ownerId") int ownerId) {
-		ModelAndView mav = new ModelAndView("owners/ownerDetails");
+		ModelAndView mav = new ModelAndView("owners/propietarioDetails");
 		mav.addObject(this.ownerService.findOwnerById(ownerId));
 		return mav;
-	}
-	
-    @GetMapping("/owners/{ownerId}/delete")
-	public String deleteOwner(@PathVariable ("ownerId") int ownerId, ModelMap model) {
-			this.ownerService.removeOwner(ownerId);
-			return "redirect:/";
 	}
 
 }

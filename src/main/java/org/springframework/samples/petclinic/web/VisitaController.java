@@ -15,7 +15,6 @@
  */
 package org.springframework.samples.petclinic.web;
 
-import java.util.Collection;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -26,7 +25,6 @@ import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.service.PetService;
 import org.springframework.samples.petclinic.service.VetService;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -38,12 +36,12 @@ import org.springframework.web.bind.annotation.*;
  * @author Michael Isvy
  */
 @Controller
-public class VisitController {
+public class VisitaController {
 
 	private final PetService petService;
 
 	@Autowired
-	public VisitController(PetService petService) {
+	public VisitaController(PetService petService) {
 		this.petService = petService;
 	}
 
@@ -69,37 +67,27 @@ public class VisitController {
 	}
 
 	// Spring MVC calls method loadPetWithVisit(...) before initNewVisitForm is called
-	@GetMapping(value = "/owners/*/pets/{petId}/visits/new")
+	@GetMapping(value = "/propietarios/*/mascotas/{petId}/visitas/nueva")
 	public String initNewVisitForm(@PathVariable("petId") int petId, Map<String, Object> model) {
-		return "pets/createOrUpdateVisitForm";
+		return "pets/createOrUpdateVisitForm_es";
 	}
 
 	// Spring MVC calls method loadPetWithVisit(...) before processNewVisitForm is called
-	@PostMapping(value = "/owners/{ownerId}/pets/{petId}/visits/new")
+	@PostMapping(value = "/propietarios/{ownerId}/mascotas/{petId}/visitas/nueva")
 	public String processNewVisitForm(@Valid Visit visit, BindingResult result) {
 		if (result.hasErrors()) {
-			return "pets/createOrUpdateVisitForm";
+			return "pets/createOrUpdateVisitForm_es";
 		}
 		else {
 			this.petService.saveVisit(visit);
-			return "redirect:/owners/{ownerId}";
+			return "redirect:/propietarios/{ownerId}";
 		}
 	}
 
-	@GetMapping(value = "/owners/*/pets/{petId}/visits")
+	@GetMapping(value = "/propietarios/*/mascotas/{petId}/visitas")
 	public String showVisits(@PathVariable int petId, Map<String, Object> model) {
 		model.put("visits", this.petService.findPetById(petId).getVisits());
 		return "visitList";
-	}
-	
-	@GetMapping("/owners/{ownerId}/pets/{petId}/visits/{visitId}/delete")
-	public String deleteVisit(@PathVariable ("ownerId") int ownerId,@PathVariable ("petId") int petId,@PathVariable ("visitId") int visitId, ModelMap model) {
-		System.out.println("Illo, movida");
-		Visit v = petService.findVisitById(visitId);
-		this.petService.removeVisit(v);
-		//this.petService.removeVisit(visitId);
-		System.out.println("cabesa, la urtima");
-		return "redirect:/";
 	}
 
 }
