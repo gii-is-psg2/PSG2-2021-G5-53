@@ -81,4 +81,8 @@ public class OwnerService {
 		return ownerRepository.findByUsername(username);
 	}
 
+	@Transactional
+	public void removeOwner(Integer id) throws DataAccessException {
+		ownerRepository.remove(id);
+	}
 }

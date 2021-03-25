@@ -132,14 +132,14 @@ public class PetController {
      * @param model
      * @return
      */
-        @PostMapping(value = "/pets/{petId}/edit")
+    @PostMapping(value = "/pets/{petId}/edit")
 	public String processUpdateForm(@Valid Pet pet, BindingResult result, Owner owner,@PathVariable("petId") int petId, ModelMap model) {
 		if (result.hasErrors()) {
 			model.put("pet", pet);
 			return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
 		}
 		else {
-                        Pet petToUpdate=this.petService.findPetById(petId);
+            Pet petToUpdate=this.petService.findPetById(petId);
 			BeanUtils.copyProperties(pet, petToUpdate, "id","owner","visits");                                                                                  
                     try {                    
                         this.petService.savePet(petToUpdate);                    
@@ -151,4 +151,10 @@ public class PetController {
 		}
 	}
 
+    @GetMapping("/pets/{petId}/delete")
+	public String deletePet(@PathVariable ("petId") int petId,ModelMap model) {
+			this.petService.removePet(petId);
+			return "redirect:/owners/{ownerId}";
+	}
+        
 }

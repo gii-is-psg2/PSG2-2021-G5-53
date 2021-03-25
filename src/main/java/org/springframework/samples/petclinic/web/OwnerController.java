@@ -28,6 +28,7 @@ import org.springframework.samples.petclinic.service.VetService;
 import org.springframework.samples.petclinic.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -139,6 +140,12 @@ public class OwnerController {
 		ModelAndView mav = new ModelAndView("owners/ownerDetails");
 		mav.addObject(this.ownerService.findOwnerById(ownerId));
 		return mav;
+	}
+	
+    @GetMapping("/owners/{ownerId}/delete")
+	public String deleteOwner(@PathVariable ("ownerId") int ownerId, ModelMap model) {
+			this.ownerService.removeOwner(ownerId);
+			return "redirect:/";
 	}
 
 }
