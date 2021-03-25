@@ -150,5 +150,10 @@ public class MascotaController {
 			return "redirect:/propietarios/{ownerId}";
 		}
 	}
+        @GetMapping("/mascotas/{petId}/eliminar")
+    	public String deletePet(@PathVariable ("petId") int petId,ModelMap model) {
+    			this.petService.removePet(petId);
+    			return "redirect:/propietarios/{ownerId}";
+    	}
 
 }
