@@ -44,7 +44,7 @@ import org.springframework.samples.petclinic.model.Vet;
  */
 public interface VetRepository extends Repository<Vet, Integer>{
 
-	Collection<Vet> findAll() throws DataAccessException;
+	
 	
 //	@Query("SELECT t FROM Specialty t")
 //	List<Specialty> findSpecialtyTypes();

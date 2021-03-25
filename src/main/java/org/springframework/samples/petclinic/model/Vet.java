@@ -34,6 +34,9 @@ import javax.xml.bind.annotation.XmlElement;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 
+import lombok.Getter;
+import lombok.Setter;
+
 
 /**
  * Simple JavaBean domain object representing a veterinarian.
@@ -45,6 +48,8 @@ import org.springframework.beans.support.PropertyComparator;
  */
 
 @Entity
+@Getter
+@Setter
 @Table(name = "vets")
 public class Vet extends Person {
 
