@@ -74,7 +74,12 @@ public class OwnerService {
 		userService.saveUser(owner.getUser());
 		//creating authorities
 		authoritiesService.saveAuthorities(owner.getUser().getUsername(), "owner");
-	}		
+	}	
+	
+	@Transactional 
+	public Owner findByUsername(String username) throws DataAccessException {
+		return ownerRepository.findByUsername(username);
+	}
 
 	@Transactional
 	public void removeOwner(Integer id) throws DataAccessException {
