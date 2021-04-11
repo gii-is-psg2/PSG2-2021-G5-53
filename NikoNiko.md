@@ -27,8 +27,8 @@ In the retrospective meeting, the team has a discussion about those results.
 
 | Day           |   jesrolcad   |   danrodcam   |     jvegax     |   dierodcam    |   pabmatang    |   PacoLCFC21   |
 | ------------- | ------------- | ------------- | -------------  | -------------  | -------------  | -------------  |
-| Day 1         |               |               |                |                |                |                |
-| Day 2         |               |               |                |                |                |                |
+| Day 1         |       -        |       -        |        -        |     -           |        -        |       -         |
+| Day 2         |               |               |                |                |                |     :smiley:            |
 | Day 3         |               |               |                |                |                |                |
 | Day 4         |               |               |                |                |                |                |
 | Day 5         |               |               |                |                |                |                |
