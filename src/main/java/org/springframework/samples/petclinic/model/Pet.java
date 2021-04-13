@@ -28,6 +28,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import java.time.LocalDate;
@@ -50,10 +51,16 @@ import javax.persistence.TemporalType;
 @Table(name = "pets")
 public class Pet extends NamedEntity {
 
+	@OneToOne
+	private Adoption adoption;
+	
 	@Column(name = "birth_date")
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private LocalDate birthDate;
 
+	@Column(name = "state")        
+	private String state;
+	
 	@ManyToOne
 	@JoinColumn(name = "type_id")
 	private PetType type;
@@ -110,6 +117,18 @@ public class Pet extends NamedEntity {
 	public void addVisit(Visit visit) {
 		getVisitsInternal().add(visit);
 		visit.setPet(this);
+	}
+	
+	public Adoption getAdoption() {
+		return this.adoption;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
 	}
 
 }
