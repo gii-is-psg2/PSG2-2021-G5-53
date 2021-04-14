@@ -28,7 +28,6 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import java.time.LocalDate;
@@ -37,8 +36,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * Simple business object representing a pet.
@@ -50,28 +47,28 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "pets")
 public class Pet extends NamedEntity {
-
-	@OneToOne
-	private Adoption adoption;
 	
 	@Column(name = "birth_date")
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private LocalDate birthDate;
-
-	@Column(name = "state")        
-	private String state;
 	
 	@ManyToOne
 	@JoinColumn(name = "type_id")
 	private PetType type;
 
-	@ManyToOne
+	@ManyToOne(optional = true)
 	@JoinColumn(name = "owner_id")
 	private Owner owner;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pet", fetch = FetchType.EAGER)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Set<Visit> visits;
+
+	@Column(name = "on_adoption")        
+	private boolean onAdoption;
+	
+	
+//	Getters & Setters
 
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
@@ -118,17 +115,14 @@ public class Pet extends NamedEntity {
 		getVisitsInternal().add(visit);
 		visit.setPet(this);
 	}
-	
-	public Adoption getAdoption() {
-		return this.adoption;
+
+
+	public boolean getOnAdoption() {
+		return onAdoption;
 	}
 
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
+	public void setOnAdoption(boolean onAdoption) {
+		this.onAdoption = onAdoption;
 	}
 
 }
