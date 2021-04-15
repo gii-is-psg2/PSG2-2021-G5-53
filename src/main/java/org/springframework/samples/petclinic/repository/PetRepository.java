@@ -59,8 +59,5 @@ public interface PetRepository extends Repository<Pet, Integer> {
 	@Modifying
 	@Query("DELETE FROM Pet pet WHERE pet.id = :id")
 	void remove(@Param("id") Integer Id);
-	
-	@Query("SELECT pet FROM Pets WHERE pet.on_adoption = :TRUE ")
-	List<Pet> findPetsForAdoption() throws DataAccessException;
 
 }

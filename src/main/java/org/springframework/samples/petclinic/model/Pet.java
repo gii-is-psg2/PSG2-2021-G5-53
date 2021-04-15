@@ -47,28 +47,26 @@ import java.util.Set;
 @Entity
 @Table(name = "pets")
 public class Pet extends NamedEntity {
-	
+
 	@Column(name = "birth_date")
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private LocalDate birthDate;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "type_id")
 	private PetType type;
 
-	@ManyToOne(optional = true)
+	@ManyToOne
 	@JoinColumn(name = "owner_id")
 	private Owner owner;
+
+	@Column(name = "on_adoption")
+	private boolean onAdoption;
+	
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pet", fetch = FetchType.EAGER)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Set<Visit> visits;
-
-	@Column(name = "on_adoption")        
-	private Boolean onAdoption;
-	
-	
-//	Getters & Setters
 
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
@@ -94,6 +92,14 @@ public class Pet extends NamedEntity {
 		this.owner = owner;
 	}
 
+	public boolean isOnAdoption() {
+		return onAdoption;
+	}
+
+	public void setOnAdoption(boolean onAdoption) {
+		this.onAdoption = onAdoption;
+	}
+	
 	protected Set<Visit> getVisitsInternal() {
 		if (this.visits == null) {
 			this.visits = new HashSet<>();
@@ -114,15 +120,6 @@ public class Pet extends NamedEntity {
 	public void addVisit(Visit visit) {
 		getVisitsInternal().add(visit);
 		visit.setPet(this);
-	}
-
-
-	public Boolean getOnAdoption() {
-		return onAdoption;
-	}
-
-	public void setOnAdoption(Boolean onAdoption) {
-		this.onAdoption = onAdoption;
 	}
 
 }

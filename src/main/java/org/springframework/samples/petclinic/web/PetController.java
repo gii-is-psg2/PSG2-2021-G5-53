@@ -19,8 +19,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
+import org.springframework.samples.petclinic.service.VetService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -28,35 +30,33 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.BeanUtils;
-import org.springframework.samples.petclinic.repository.PetRepository;
+import org.springframework.dao.DataAccessException;
+import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.service.OwnerService;
 import org.springframework.samples.petclinic.service.PetService;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
 
 /**
- * @author PSG2 G5-53
+ * @author Juergen Hoeller
+ * @author Ken Krebs
+ * @author Arjen Poutsma
  */
-
 @Controller
 @RequestMapping("/owners/{ownerId}")
 public class PetController {
 
 	private static final String VIEWS_PETS_CREATE_OR_UPDATE_FORM = "pets/createOrUpdatePetForm";
 
-	@Autowired
 	private final PetService petService;
-	@Autowired
-    private final OwnerService ownerService;
-    @Autowired
-	private final PetRepository petRepo;
-	
+        private final OwnerService ownerService;
 
 	@Autowired
-	public PetController(PetService petService, OwnerService ownerService, PetRepository petRepo) {
+	public PetController(PetService petService, OwnerService ownerService) {
 		this.petService = petService;
-		this.ownerService = ownerService;
-		this.petRepo = petRepo;
+                this.ownerService = ownerService;
 	}
 
 	@ModelAttribute("types")
@@ -68,6 +68,16 @@ public class PetController {
 	public Owner findOwner(@PathVariable("ownerId") int ownerId) {
 		return this.ownerService.findOwnerById(ownerId);
 	}
+        
+        /*@ModelAttribute("pet")
+	public Pet findPet(@PathVariable("petId") Integer petId) {
+            Pet result=null;
+		if(petId!=null)
+                    result=this.clinicService.findPetById(petId);
+                else
+                    result=new Pet();
+            return result;
+	}*/
                 
 	@InitBinder("owner")
 	public void initOwnerBinder(WebDataBinder dataBinder) {
@@ -122,8 +132,6 @@ public class PetController {
      * @param model
      * @return
      */
-	
-	
     @PostMapping(value = "/pets/{petId}/edit")
 	public String processUpdateForm(@Valid Pet pet, BindingResult result, Owner owner,@PathVariable("petId") int petId, ModelMap model) {
 		if (result.hasErrors()) {
@@ -148,18 +156,5 @@ public class PetController {
 			this.petService.removePet(petId);
 			return "redirect:/owners/{ownerId}";
 	}
-
-
- 	@GetMapping("")
- 	public String listadoAnimales(ModelMap modelmap) {
-// 			Lista los animales disponibles para adopcion
-			if (petRepo.findPetsForAdoption().isEmpty()) {
-				modelmap.addAttribute("message", "No hay animales disponibles para adoptar en este momento");
-				return "welcome";
-			}
-			return "animals/listadoAnimales";
-
-		}
         
 }
-
