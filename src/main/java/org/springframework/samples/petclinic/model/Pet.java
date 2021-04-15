@@ -65,7 +65,7 @@ public class Pet extends NamedEntity {
 	private Set<Visit> visits;
 
 	@Column(name = "on_adoption")        
-	private boolean onAdoption;
+	private Boolean onAdoption;
 	
 	
 //	Getters & Setters
@@ -117,11 +117,11 @@ public class Pet extends NamedEntity {
 	}
 
 
-	public boolean getOnAdoption() {
+	public Boolean getOnAdoption() {
 		return onAdoption;
 	}
 
-	public void setOnAdoption(boolean onAdoption) {
+	public void setOnAdoption(Boolean onAdoption) {
 		this.onAdoption = onAdoption;
 	}
 
