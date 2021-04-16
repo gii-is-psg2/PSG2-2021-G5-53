@@ -36,9 +36,9 @@ public class Reserva extends BaseEntity{
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "reservaowner")
 	private Owner owner;
-
+	
 	@ManyToOne(cascade = CascadeType.MERGE)
-	@JoinColumn(name = "reservahabitacion")
-	private Habitacion habitacion;
+	@JoinColumn(name = "petreserva")
+	private Pet pet;
 
 }
