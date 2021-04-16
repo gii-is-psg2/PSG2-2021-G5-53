@@ -16,6 +16,7 @@
 package org.springframework.samples.petclinic.service;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -86,13 +87,22 @@ public class PetService {
 	
 	@Transactional
 	public void removeVisit(Visit v) throws DataAccessException {
-		System.out.println("He llegao bro");
+		System.out.println("He llegao");
 		visitRepository.delete(v);
 	}
 	
 	@Transactional(readOnly = true)
 	public Visit findVisitById(int id) throws DataAccessException {
 		return visitRepository.findById(id);
+	}
+	
+	public List<Pet> findPetsForAdoption(){
+		return petRepository.findPetsForAdoption();
+	}
+	
+	@Transactional
+	public void saveAdoption(Integer ownerId,Integer petId){
+		petRepository.saveAdoption(ownerId, petId);
 	}
 
 	

@@ -39,6 +39,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/admin/**").hasAnyAuthority("admin")
 				.antMatchers("/owners/**").hasAnyAuthority("owner","admin")
 				.antMatchers("/reservas/**").hasAnyAuthority("owner")
+				.antMatchers("/adoption/**").hasAnyAuthority("owner","admin")
 				.antMatchers("/habitaciones/**").hasAnyAuthority("owner")
 				.antMatchers("/vets/**").authenticated()
 				.antMatchers("/propietarios/**").hasAnyAuthority("owner","admin")				
@@ -48,7 +49,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.anyRequest().denyAll()
 				.and()
 				 	.formLogin()
-				 	/*.loginPage("/login")*/
 				 	.failureUrl("/login-error")
 				.and()
 					.logout()
