@@ -89,8 +89,10 @@
     <properties>
 
         <!-- Generic properties -->
-        <java.version>1.8</java.version>
+        <java.version>11</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.target>11</maven.compiler.target>
+		<maven.compiler.source>11</maven.compiler.source>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- Web dependencies -->
@@ -101,9 +103,14 @@
 
         <jacoco.version>0.8.5</jacoco.version>
         <spring-format.version>0.0.19</spring-format.version>
-
+	
+        
+        <sonar.projectKey>gii-is-psg2_PSG2-2021-G5-53</sonar.projectKey>
+        <sonar.organization>gii-is-psg2</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties> 
-
+	
+	
     <dependencies>
         <!-- Spring and Spring Boot dependencies -->
         <dependency>
@@ -207,17 +214,19 @@
             <artifactId>junit</artifactId>
             <groupId>junit</groupId>
         </dependency>
-        <!-- Development tools>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-        </dependency -->
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
         </dependency>
     </dependencies>
+    
+    
 
     <build>
         <plugins>
@@ -242,6 +251,11 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.1</version>
+         </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
