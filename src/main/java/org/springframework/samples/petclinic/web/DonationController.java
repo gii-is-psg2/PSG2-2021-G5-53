@@ -15,12 +15,14 @@
  */
 package org.springframework.samples.petclinic.web;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.Donation;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.OwnerService;
@@ -41,110 +43,57 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Michael Isvy
  */
 @Controller
+@RequestMapping("/causes/{causeId}")
 public class DonationController {
 
-	private static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = "owners/createOrUpdateOwnerForm";
+	private static final String VIEWS_DONATION_CREATE_OR_UPDATE_FORM = "donations/createOrUpdateDonationForm";
+    private final CauseService causeService;
+   
 
-	private final OwnerService ownerService;
+    @Autowired
+    public DonationController(CauseService causeService) {
+        this.causeService = causeService;
+    }
+    
+    @ModelAttribute("cause")
+    public Cause findOwner(@PathVariable("causeId") int causeId) {
+        return this.causeService.findCauseById(causeId);
+    }
+    
+    @InitBinder("cause")
+    public void initCauseBinder(WebDataBinder dataBinder) {
+        dataBinder.setDisallowedFields("id");
+    }
 
-	@Autowired
-	public DonationController(OwnerService ownerService, UserService userService, AuthoritiesService authoritiesService) {
-		this.ownerService = ownerService;
-	}
+    @GetMapping(value = "/donations/new")
+    public String initCreationForm(Cause cause, ModelMap model) {
+        Donation donation = new Donation();
+        cause.addDonation(donation);
+    	donation.setDate(LocalDate.now());
+        model.put("donation", donation);
+        return VIEWS_DONATION_CREATE_OR_UPDATE_FORM;
+    }
 
-	@InitBinder
-	public void setAllowedFields(WebDataBinder dataBinder) {
-		dataBinder.setDisallowedFields("id");
-	}
-
-	@GetMapping(value = "/owners/new")
-	public String initCreationForm(Map<String, Object> model) {
-		Owner owner = new Owner();
-		model.put("owner", owner);
-		return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
-	}
-
-	@PostMapping(value = "/owners/new")
-	public String processCreationForm(@Valid Owner owner, BindingResult result) {
-		if (result.hasErrors()) {
-			return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
-		}
-		else {
-			//creating owner, user and authorities
-			this.ownerService.saveOwner(owner);
-			return "redirect:/owners/" + owner.getId();
-		}
-	}
-
-	@GetMapping(value = "/owners/find")
-	public String initFindForm(Map<String, Object> model) {
-		model.put("owner", new Owner());
-		return "owners/findOwners";
-	}
-
-	@GetMapping(value = "/owners")
-	public String processFindForm(Owner owner, BindingResult result, Map<String, Object> model) {
-
-		// allow parameterless GET request for /owners to return all records
-		if (owner.getLastName() == null) {
-			owner.setLastName(""); // empty string signifies broadest possible search
-		}
-
-		// find owners by last name
-		Collection<Owner> results = this.ownerService.findOwnerByLastName(owner.getLastName());
-		if (results.isEmpty()) {
-			// no owners found
-			result.rejectValue("lastName", "notFound", "not found");
-			return "owners/findOwners";
-		}
-		else if (results.size() == 1) {
-			// 1 owner found
-			owner = results.iterator().next();
-			return "redirect:/owners/" + owner.getId();
-		}
-		else {
-			// multiple owners found
-			model.put("selections", results);
-			return "owners/ownersList";
-		}
-	}
-
-	@GetMapping(value = "/owners/{ownerId}/edit")
-	public String initUpdateOwnerForm(@PathVariable("ownerId") int ownerId, Model model) {
-		Owner owner = this.ownerService.findOwnerById(ownerId);
-		model.addAttribute(owner);
-		return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
-	}
-
-	@PostMapping(value = "/owners/{ownerId}/edit")
-	public String processUpdateOwnerForm(@Valid Owner owner, BindingResult result,
-			@PathVariable("ownerId") int ownerId) {
-		if (result.hasErrors()) {
-			return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
-		}
-		else {
-			owner.setId(ownerId);
-			this.ownerService.saveOwner(owner);
-			return "redirect:/owners/{ownerId}";
-		}
-	}
-
-	/**
-	 * Custom handler for displaying an owner.
-	 * @param ownerId the ID of the owner to display
-	 * @return a ModelMap with the model attributes for the view
-	 */
-	@GetMapping("/owners/{ownerId}")
-	public ModelAndView showOwner(@PathVariable("ownerId") int ownerId) {
-		ModelAndView mav = new ModelAndView("owners/ownerDetails");
-		mav.addObject(this.ownerService.findOwnerById(ownerId));
-		return mav;
-	}
-	
-    @GetMapping("/owners/{ownerId}/delete")
-	public String deleteOwner(@PathVariable ("ownerId") int ownerId, ModelMap model) {
-			this.ownerService.removeOwner(ownerId);
-			return "redirect:/";
-	}
-
+    @PostMapping(value = "/donations/new")
+    public String processCreationForm(@ModelAttribute Cause cause, @Valid Donation donation, BindingResult result, ModelMap model) {
+    	donation.setCause(cause);
+    	if (cause.getIsClosed()){
+            result.rejectValue("client", "closed");
+            result.rejectValue("amount", "closed");
+    	} 
+        if (result.hasErrors()) {
+        	model.put("donation", donation);
+            return VIEWS_DONATION_CREATE_OR_UPDATE_FORM;
+        } else {
+            this.causeService.saveDonation(donation);
+            cause.addDonation(donation);
+            if(cause.getBudgetTarget() <= causeService.totalBudget(donation.getCause().getId())){
+            	cause.setIsClosed(true);
+            this.causeService.saveCause(cause);
+            }
+          
+        return "redirect:/causes";
+    }  
 }
+
+    }
