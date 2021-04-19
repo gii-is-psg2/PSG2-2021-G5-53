@@ -1,16 +1,22 @@
 package org.springframework.samples.petclinic.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Cause;
+import org.springframework.samples.petclinic.model.Donation;
 import org.springframework.samples.petclinic.repository.CauseRepository;
+import org.springframework.samples.petclinic.repository.DonationRepository;
 import org.springframework.samples.petclinic.repository.PetRepository;
 import org.springframework.samples.petclinic.repository.VisitRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CauseService {
 	
 	private CauseRepository causeRepository;
@@ -27,7 +33,7 @@ public class CauseService {
 		causeRepository.save(cause);
 	}
 
-	@Transactional(readOnly = true)
+	@Transactional
 	public Cause findCauseById(int causeId) throws DataAccessException {
 		return causeRepository.findByCauseId(causeId);
 	}
@@ -39,7 +45,6 @@ public class CauseService {
 		return causeRepository.findAll();
 	}
 	
-	@Override
 	public Donation findByDonationId(int donationId)  {
 		return donationRepository.findByDonationId(donationId);
 	}	
@@ -49,17 +54,14 @@ public class CauseService {
 		donationRepository.save(donation);
 	}
 
-	@Override
 	public Double totalBudget(int causeId)  {
 		return causeRepository.totalBudget(causeId);
 	}
 
-	@Override
 	public Collection<Donation> findDonations(int causeId)  {
 		return causeRepository.findDonations(causeId);
 	}
 
-	@Override
 	public List<Double> findDonationsByCauses(List<Cause> causes) {
 		List<Double> res=new ArrayList<>();
 		for(Cause c:causes) {

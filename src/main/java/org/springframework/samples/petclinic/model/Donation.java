@@ -1,6 +1,5 @@
 package org.springframework.samples.petclinic.model;
 
-import java.awt.event.FocusEvent.Cause;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
