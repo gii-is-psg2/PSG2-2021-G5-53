@@ -1,0 +1,79 @@
+package org.springframework.samples.petclinic.service;
+
+import java.util.Collection;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.samples.petclinic.model.Cause;
+import org.springframework.samples.petclinic.repository.CauseRepository;
+import org.springframework.samples.petclinic.repository.PetRepository;
+import org.springframework.samples.petclinic.repository.VisitRepository;
+
+public class CauseService {
+	
+	private CauseRepository causeRepository;
+	private DonationRepository donationRepository;
+	
+	@Autowired
+	public CauseService(CauseRepository causeRepository) {
+		this.causeRepository = causeRepository;
+	}
+	
+	
+	@Transactional
+	public void saveCause(Cause cause) {
+		causeRepository.save(cause);
+	}
+
+	@Transactional(readOnly = true)
+	public Cause findCauseById(int causeId) throws DataAccessException {
+		return causeRepository.findByCauseId(causeId);
+	}
+	
+
+	
+	@Transactional
+	public Collection<Cause> findCauses()  {
+		return causeRepository.findAll();
+	}
+	
+	@Override
+	public Donation findByDonationId(int donationId)  {
+		return donationRepository.findByDonationId(donationId);
+	}	
+
+
+	public void saveDonation(Donation donation)  {
+		donationRepository.save(donation);
+	}
+
+	@Override
+	public Double totalBudget(int causeId)  {
+		return causeRepository.totalBudget(causeId);
+	}
+
+	@Override
+	public Collection<Donation> findDonations(int causeId)  {
+		return causeRepository.findDonations(causeId);
+	}
+
+	@Override
+	public List<Double> findDonationsByCauses(List<Cause> causes) {
+		List<Double> res=new ArrayList<>();
+		for(Cause c:causes) {
+			Double res1=0.;
+				for(Donation d:this.findDonationsByCauseId(c.getId())) {
+					res1+=d.getAmount();
+			
+					}
+			res.add(res1);
+		}
+		return res;
+	}
+
+	private Collection<Donation> findDonationsByCauseId(Integer id) {
+		return donationRepository.findByCauseId(id);
+	}
+}
