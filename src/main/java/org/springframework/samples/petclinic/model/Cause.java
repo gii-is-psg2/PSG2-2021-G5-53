@@ -32,7 +32,7 @@ public class Cause extends BaseEntity {
 	private String description;
 	
 	@NotNull
-	@Column(name = "budged_target")
+	@Column(name = "budget_target")
 	@Min(0)
 	private Double budgetTarget;
 	
