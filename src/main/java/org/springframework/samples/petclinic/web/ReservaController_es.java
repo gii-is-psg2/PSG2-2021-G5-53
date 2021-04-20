@@ -6,11 +6,9 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.model.Habitacion;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.Reserva;
-import org.springframework.samples.petclinic.service.HabitacionService;
 import org.springframework.samples.petclinic.service.OwnerService;
 import org.springframework.samples.petclinic.service.PetService;
 import org.springframework.samples.petclinic.service.ReservaService;
@@ -29,15 +27,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class ReservaController_es {
 	
 	private  ReservaService reservaService;
-	private HabitacionService habitacionService;
 	private OwnerService ownerService;
 	private PetService petService;
 	
 	@Autowired
-	public ReservaController_es(ReservaService reservaService, HabitacionService habitacionService, OwnerService ownerService,
+	public ReservaController_es(ReservaService reservaService, OwnerService ownerService,
 			PetService petService) {
 		this.reservaService = reservaService;
-		this.habitacionService = habitacionService;
 		this.ownerService = ownerService;
 		this.petService = petService;
 	}
@@ -85,14 +81,14 @@ public class ReservaController_es {
 		}
 	}
 	
-	@GetMapping(value = "/reservas/{reservaId}/todasLasHabitacionesDisponibles/{habitacionId}")
-	public String anadirHabitacionAReserva(@PathVariable("reservaId") int reservaId, @PathVariable("habitacionId") int habitacionId, ModelMap model) {
-		Reserva reserva = this.reservaService.findById(reservaId);
-		Habitacion hab = this.habitacionService.findById(habitacionId);
-		reserva.setHabitacion(hab);
-		this.reservaService.saveReserva(reserva);
-		return "redirect:/reservas/{reservaId}/todasLasHabitacionesDisponibles/{habitacionId}/elegirMascota";
-	}
+//	@GetMapping(value = "/reservas/{reservaId}/todasLasHabitacionesDisponibles/{habitacionId}")
+//	public String anadirHabitacionAReserva(@PathVariable("reservaId") int reservaId, @PathVariable("habitacionId") int habitacionId, ModelMap model) {
+//		Reserva reserva = this.reservaService.findById(reservaId);
+//		Habitacion hab = this.habitacionService.findById(habitacionId);
+//		reserva.setHabitacion(hab);
+//		this.reservaService.saveReserva(reserva);
+//		return "redirect:/reservas/{reservaId}/todasLasHabitacionesDisponibles/{habitacionId}/elegirMascota";
+//	}
 	
 	@GetMapping(value = "/reservas/{reservaId}/todasLasHabitacionesDisponibles/{habitacionId}/elegirMascota")
 	public String elegirPet(@PathVariable("reservaId") int reservaId, @PathVariable("habitacionId") int habitacionId,
@@ -106,14 +102,14 @@ public class ReservaController_es {
 		return "reservas/elegirPet_es";
 	}
 	
-	@GetMapping(value = "/reservas/{reservaId}/todasLasHabitacionesDisponibles/{habitacionId}/{petId}")
-	public String asignarPetAHabitacion(@PathVariable("reservaId") int reservaId, @PathVariable("habitacionId") int habitacionId,
-			@PathVariable("petId") int petId, ModelMap model) {
-		Habitacion hab = this.habitacionService.findById(habitacionId);
-		hab.setPet(this.petService.findPetById(petId));
-		this.habitacionService.saveHabitacion(hab);
-		return "bienvenido";
-	}
+//	@GetMapping(value = "/reservas/{reservaId}/todasLasHabitacionesDisponibles/{habitacionId}/{petId}")
+//	public String asignarPetAHabitacion(@PathVariable("reservaId") int reservaId, @PathVariable("habitacionId") int habitacionId,
+//			@PathVariable("petId") int petId, ModelMap model) {
+//		Habitacion hab = this.habitacionService.findById(habitacionId);
+//		hab.setPet(this.petService.findPetById(petId));
+//		this.habitacionService.saveHabitacion(hab);
+//		return "bienvenido";
+//	}
 	
 	
 	
