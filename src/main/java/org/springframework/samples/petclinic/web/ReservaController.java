@@ -1,8 +1,6 @@
 package org.springframework.samples.petclinic.web;
-
 import java.util.List;
 import java.util.Map;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +20,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
 @Controller
 public class ReservaController {
-	
+
 	private  ReservaService reservaService;
 	private OwnerService ownerService;
 	private PetService petService;
-	
+
 	@Autowired
 	public ReservaController(ReservaService reservaService, OwnerService ownerService,
 			PetService petService) {
@@ -59,6 +56,7 @@ public class ReservaController {
         Owner owner = this.ownerService.findByUsername(userName);
         return  owner;
 	}
+
 	
 	@GetMapping(value = "/reservas/{petId}/new")
 	public String initCreationForm(Map<String, Object> model, @PathVariable("petId") Integer petId) {
@@ -66,6 +64,7 @@ public class ReservaController {
 		model.put("reserva", reserva);
 		return "reservas/createOrUpdateReservaForm";
 	}
+
 	
 	@PostMapping(value = "/reservas/{petId}/new")
 	public String processCreationForm(@Valid Reserva reserva, BindingResult result,ModelMap model, @PathVariable("petId") Integer petId) {
@@ -93,8 +92,11 @@ public class ReservaController {
 		}
 		}
 	}
+
 	
 
+
+	
 	@GetMapping(value = "/reservas/choosePet")
 	public String elegirPet(ModelMap model) {
 		Owner owner = getOwnerActivo();
@@ -102,9 +104,8 @@ public class ReservaController {
 		model.put("pets", pets);
 		return "reservas/elegirPet";
 	}
+
 	
-	
-	
-	
+
 
 }

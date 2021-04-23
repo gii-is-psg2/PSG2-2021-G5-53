@@ -1,8 +1,6 @@
 package org.springframework.samples.petclinic.web;
-
 import java.util.List;
 import java.util.Map;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +20,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
 @Controller
 public class ReservaController_es {
-	
+
 	private  ReservaService reservaService;
 	private OwnerService ownerService;
 	private PetService petService;
-	
+
 	@Autowired
 	public ReservaController_es(ReservaService reservaService, OwnerService ownerService,
 			PetService petService) {
@@ -80,6 +77,7 @@ public class ReservaController_es {
 			return "redirect:/habitaciones/" + String.valueOf(reserva.getId()) + "/todasLasHabitaciones";
 		}
 	}
+
 	
 //	@GetMapping(value = "/reservas/{reservaId}/todasLasHabitacionesDisponibles/{habitacionId}")
 //	public String anadirHabitacionAReserva(@PathVariable("reservaId") int reservaId, @PathVariable("habitacionId") int habitacionId, ModelMap model) {
@@ -89,7 +87,7 @@ public class ReservaController_es {
 //		this.reservaService.saveReserva(reserva);
 //		return "redirect:/reservas/{reservaId}/todasLasHabitacionesDisponibles/{habitacionId}/elegirMascota";
 //	}
-	
+
 	@GetMapping(value = "/reservas/{reservaId}/todasLasHabitacionesDisponibles/{habitacionId}/elegirMascota")
 	public String elegirPet(@PathVariable("reservaId") int reservaId, @PathVariable("habitacionId") int habitacionId,
 			ModelMap model) {
@@ -101,6 +99,7 @@ public class ReservaController_es {
 		model.put("pets", pets);
 		return "reservas/elegirPet_es";
 	}
+
 	
 //	@GetMapping(value = "/reservas/{reservaId}/todasLasHabitacionesDisponibles/{habitacionId}/{petId}")
 //	public String asignarPetAHabitacion(@PathVariable("reservaId") int reservaId, @PathVariable("habitacionId") int habitacionId,
@@ -110,8 +109,7 @@ public class ReservaController_es {
 //		this.habitacionService.saveHabitacion(hab);
 //		return "bienvenido";
 //	}
-	
-	
-	
+
+
 
 }

@@ -8,7 +8,6 @@ import org.springframework.samples.petclinic.model.Reserva;
 import org.springframework.samples.petclinic.repository.ReservaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 @Service
 public class ReservaService {
 	
@@ -17,7 +16,6 @@ public class ReservaService {
 	@Autowired
     public ReservaService(ReservaRepository reservaRepository) {
         this.reservaRepository = reservaRepository;
-
     }
 	
 	@Transactional
@@ -29,11 +27,11 @@ public class ReservaService {
 	public Reserva findById(int reservaId) throws DataAccessException {
 		return reservaRepository.findById(reservaId);
 	}
-	
+
 	public List<Reserva> findReservasByPetId(int petId) throws DataAccessException{
 		return reservaRepository.findReservasByPetId(petId);
 	}
-	
+
 	//Devuelve -1 si no hay solapamiento. 
 	//Si hay solapamiento, devuelve un entero que representa el id 
 	//de la primera reserva que produce solapamiento
@@ -53,7 +51,7 @@ public class ReservaService {
 			}
 		}
 		}
-		
+
 		return indice;
 	}
 }
