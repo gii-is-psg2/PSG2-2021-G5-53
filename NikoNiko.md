@@ -38,11 +38,11 @@ In the retrospective meeting, the team has a discussion about those results.
 | 14/04/2021    |       -       |               |    :smiley:    |       -        |                |        -       |
 | 15/04/2021    |:smiley:       |               |    :smiley:    |       -        |                | :neutral_face: |
 | 16/04/2021    |:smiley:       | :neutral_face:|    :smiley:    |                |                |   :worried:    |
-| 17/04/2021    |       -       |               |                |                |                |    :smiley:    |
-| 18/04/2021    |:fearful:      |               |                |                |                |        -       |
-| 19/04/2021    |               | :smiley:      |                |                |                |        -       |
-| 20/04/2021    |               |               |                |                |                |        -       |
-| 21/04/2021    |               |               |                |                |                |        -       |
+| 17/04/2021    |       -       |               |       -        |                |                |    :smiley:    |
+| 18/04/2021    |:fearful:      |               |       -        |                |                |        -       |
+| 19/04/2021    |               | :smiley:      |       -        |                |                |        -       |
+| 20/04/2021    |               |               |       -        |                |                |        -       |
+| 21/04/2021    |               |               |    :worried:   |                |                |        -       |
 | 22/04/2021    |               |               |                |                |                |                |
 | 23/04/2021    |               |               |                |                |                |                |
 | 24/04/2021    |               |               |                |                |                |                |
