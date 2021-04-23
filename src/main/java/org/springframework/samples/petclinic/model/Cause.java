@@ -1,11 +1,23 @@
 package org.springframework.samples.petclinic.model;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.beans.support.MutableSortDefinition;
+import org.springframework.beans.support.PropertyComparator;
 
 @Entity
 @Table(name = "causes")
@@ -20,7 +32,7 @@ public class Cause extends BaseEntity {
 	private String description;
 	
 	@NotNull
-	@Column(name = "budged_target")
+	@Column(name = "budget_target")
 	@Min(0)
 	private Double budgetTarget;
 	
