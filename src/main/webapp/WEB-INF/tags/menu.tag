@@ -40,7 +40,7 @@
 					<span>Veterinarians</span>
 				</petclinic:menuItem>
 				
-				<petclinic:menuItem active="${name eq 'reservas'}" url="/reservas/new"
+				<petclinic:menuItem active="${name eq 'reservas'}" url="/reservas/choosePet"
 					title="petHotel">
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
 					<span>Book a room</span>
@@ -51,11 +51,6 @@
 					<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
 					<span>Error</span>
 				</petclinic:menuItem>
-				
-				<petclinic:menuItem active="${name eq 'causes'}" url="/causes" title="causes">
-                    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-                    <span>Causes</span>
-                </petclinic:menuItem>
 
 			</ul>
 
