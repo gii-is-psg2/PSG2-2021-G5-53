@@ -12,14 +12,13 @@ import org.springframework.samples.petclinic.model.Cause;
 import org.springframework.samples.petclinic.model.Donation;
 import org.springframework.samples.petclinic.repository.CauseRepository;
 import org.springframework.samples.petclinic.repository.DonationRepository;
-import org.springframework.samples.petclinic.repository.PetRepository;
-import org.springframework.samples.petclinic.repository.VisitRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CauseService {
-	
+	@Autowired
 	private CauseRepository causeRepository;
+	@Autowired
 	private DonationRepository donationRepository;
 	
 	@Autowired

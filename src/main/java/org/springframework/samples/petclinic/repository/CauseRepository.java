@@ -8,7 +8,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.samples.petclinic.model.Cause;
 import org.springframework.samples.petclinic.model.Donation;
 
+
 public interface CauseRepository extends Repository<Cause,Integer> {
+
+
+
+
+
 	
 	void save(Cause cause);
     
