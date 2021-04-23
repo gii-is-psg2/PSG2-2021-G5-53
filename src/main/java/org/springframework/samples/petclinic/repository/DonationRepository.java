@@ -9,6 +9,7 @@ import org.springframework.samples.petclinic.model.Cause;
 import org.springframework.samples.petclinic.model.Donation;
 
 
+
 public interface DonationRepository extends Repository<Donation,Integer> {
 
 
@@ -23,3 +24,4 @@ void save(Donation donation);
 
 
 }
+
