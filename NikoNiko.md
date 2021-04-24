@@ -43,8 +43,8 @@ In the retrospective meeting, the team has a discussion about those results.
 | 19/04/2021    |       -       | :smiley:      |       -        |       -        |    :smiley:    |        -       |
 | 20/04/2021    |       -       |               |       -        |       -        |       -        |        -       |
 | 21/04/2021    |       -       |               |                |    :worried:   |       -        |        -       |
-| 22/04/2021    |       -       |               |                |                |                |                |
-| 23/04/2021    |  :worried:    |               |                |                |                |                |
+| 22/04/2021    |       -       |               |                |                |                |        -       |
+| 23/04/2021    |  :worried:    |               |                |                |                |    :smiley:    |
 | 24/04/2021    |               |               |                |                |                |                |
 | 25/04/2021    |               |               |                |                |                |                |
 | 26/04/2021    |               |               |                |                |                |                |
