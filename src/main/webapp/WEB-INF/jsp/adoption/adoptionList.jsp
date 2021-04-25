@@ -36,8 +36,9 @@
                                 <c:out value="${pet.birthDate}" />
                             </td>
                             <td style="text-align: center;">
-	                        	<spring:url value="adoption/application/{petId}" var="applicationURL">
+	                        	<spring:url value="adoption/application/{petId}/{petName}" var="applicationURL">
 	                       		<spring:param name="petId" value="${pet.id}"/>
+	                       		<spring:param name="petName" value="${pet.name}"/>
 	                       		</spring:url>
 	                       		<a href="${fn:escapeXml(applicationURL)}">Apply</a>
                        		</td>

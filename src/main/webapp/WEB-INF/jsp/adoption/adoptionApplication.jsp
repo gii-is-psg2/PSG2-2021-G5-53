@@ -7,6 +7,7 @@
 
 <petclinic:layout pageName="application">
 <jsp:body>
+<h2>Explain why you would be a perfect owner for <c:out value="${petName}"/></h2>
 <form:form modelAttribute="adoption" class="form-horizontal" id="add-owner-form">
 	<div class="form-group has-feedback">
 	    <petclinic:inputField label="Info" name="applicationInfo"/>

@@ -91,22 +91,23 @@ public class AdoptionController {
     
     
     @GetMapping("/adoption/save/{ownerId}/{petId}")
-	public String saveAdoption(@PathVariable ("ownerId") int ownerId,@PathVariable ("petId") int petId, ModelMap model) {
+	public String saveAdoption(ModelMap model,@PathVariable ("ownerId") int ownerId,@PathVariable ("petId") int petId) {
     	adoptionService.saveAdoption(ownerId, petId);
 		return "welcome";
 	}
     
   
-    @GetMapping("/adoption/application/{petId}")
-    public String adoptionApplication(@PathVariable ("petId") int petId,ModelMap model) {
+    @GetMapping("/adoption/application/{petId}/{petName}")
+    public String adoptionApplication(ModelMap model,@PathVariable ("petId") int petId, @PathVariable ("petName") String petName) {
 		model.put("petId", petId);
-		return "redirect:/adoption/application/{petId}/new";
+		return "redirect:/adoption/application/{petId}/{petName}/new";
     }
     
-    @GetMapping(value = "/adoption/application/{petId}/new")
-    public String initCreationForm(Map<String, Object> model, @PathVariable ("petId") int petId) {
+    @GetMapping(value = "/adoption/application/{petId}/{petName}/new")
+    public String initCreationForm(Map<String, Object> model, @PathVariable ("petId") int petId,@PathVariable ("petName") String petName) {
         Adoption adoption = new Adoption();
         model.put("adoption", adoption);
+        model.put("petName", petName);
         return "adoption/adoptionApplication";
     }
     
@@ -114,8 +115,6 @@ public class AdoptionController {
     @PostMapping(value = "/adoption/application/{petId}/new")
     public String processCreationForm(Adoption adoption,BindingResult result,ModelMap model,@PathVariable ("petId") int petId) {
     	if (result.hasErrors()) {
-    		
-    		//model.put("errores",result.getAllErrors());
             model.put("adoption",adoption);
             return "adoption/adoptionApplication";
         }else {
