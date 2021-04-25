@@ -15,21 +15,12 @@
  */
 package org.springframework.samples.petclinic.service;
 
-import java.util.Collection;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.samples.petclinic.model.Pet;
-import org.springframework.samples.petclinic.model.PetType;
-import org.springframework.samples.petclinic.model.Visit;
+import org.springframework.samples.petclinic.model.Adoption;
 import org.springframework.samples.petclinic.repository.AdoptionRepository;
-import org.springframework.samples.petclinic.repository.PetRepository;
-import org.springframework.samples.petclinic.repository.VisitRepository;
-import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 /**
  * Mostly used as a facade for all Petclinic controllers Also a placeholder
@@ -50,18 +41,20 @@ public class AdoptionService {
 		
 	}
 
-	public List<Pet> findPetsForAdoption(){
-		return adoptionRepository.findPetsForAdoption();
-	}
 	
 	@Transactional
 	public void saveAdoption(Integer ownerId,Integer petId){
 		adoptionRepository.saveAdoption(ownerId, petId);
 	}
 
-	public void saveApplication(int petId, int ownerId) {
-		adoptionRepository.saveApplication(petId,ownerId);
-		
+//	public void saveApplication(int petId, int ownerId) {
+//		adoptionRepository.saveApplication(petId,ownerId);
+//		
+//	}
+	
+	@Transactional
+    public void saveAdoption(Adoption adoption) throws DataAccessException {
+        adoptionRepository.save(adoption);
 	}
 	
 

@@ -7,9 +7,18 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "adoption")
 public class Adoption extends BaseEntity{
+	
+	@NotNull
+	@Column(name = "info")
+	private String applicationInfo;
 	
 	@NotNull
 	@ManyToOne
@@ -21,9 +30,6 @@ public class Adoption extends BaseEntity{
     @JoinColumn(name = "application_owner")
     private Owner applicationOwner;
 	
-	@NotNull
-	@Column(name = "info")
-	private String applicationInfo;
 
 	public Pet getPet() {
 		return pet;

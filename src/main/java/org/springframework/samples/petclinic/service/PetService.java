@@ -96,6 +96,10 @@ public class PetService {
 		return visitRepository.findById(id);
 	}
 	
+	public List<Pet> findPetsForAdoption(){
+		return petRepository.findPetsForAdoption();
+	}
+	
 
 	
 

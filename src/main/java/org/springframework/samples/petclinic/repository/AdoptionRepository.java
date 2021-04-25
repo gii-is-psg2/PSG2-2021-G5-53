@@ -15,27 +15,25 @@
  */
 package org.springframework.samples.petclinic.repository;
 
-import java.util.List;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.Repository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.samples.petclinic.model.Pet;
+import org.springframework.samples.petclinic.model.Adoption;
+import org.springframework.stereotype.Repository;
 
+@Repository
+public interface AdoptionRepository extends CrudRepository<Adoption, Integer> {
 
-public interface AdoptionRepository extends Repository<Pet, Integer> {
-
-	@Query(nativeQuery = true, value = "SELECT * FROM PETS WHERE ON_ADOPTION = TRUE")
-	List<Pet> findPetsForAdoption();
 	
 	@Modifying
 	@Query(nativeQuery = true, value = "UPDATE PETS SET ON_ADOPTION=FALSE, OWNER_ID=?1 WHERE ID=?2")
 	void saveAdoption(@Param("ownerId") Integer id, @Param("petId") Integer petId);
 
 	
-	@Modifying
-	@Query(nativeQuery = true, value = "INSERT INTO ADOPTION (INFO,  APPLICATION_OWNER, PET_ID) VALUES (?2, ?1)")
-	void saveApplication(int petId, int ownerId);
+//	@Modifying
+//	@Query(nativeQuery = true, value = "INSERT INTO ADOPTION (INFO,  APPLICATION_OWNER, PET_ID) VALUES (?2, ?1)")
+//	void saveApplication(int petId, int ownerId);
 
 	
 }

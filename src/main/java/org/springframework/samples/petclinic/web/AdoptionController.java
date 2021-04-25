@@ -27,6 +27,7 @@ import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.service.AdoptionService;
 import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.OwnerService;
+import org.springframework.samples.petclinic.service.PetService;
 import org.springframework.samples.petclinic.service.UserService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -52,11 +53,18 @@ public class AdoptionController {
 
 	private final AdoptionService adoptionService;
 	private final OwnerService ownerService;
+	private final PetService petService;
+	private final UserService userService;
+	private final AuthoritiesService authoritiesService;
 	
 	@Autowired
-	public AdoptionController(AdoptionService adoptionService,OwnerService ownerService, UserService userService, AuthoritiesService authoritiesService) {
+	public AdoptionController(AdoptionService adoptionService,OwnerService ownerService, PetService petService, UserService userService, AuthoritiesService authoritiesService) {
 		this.adoptionService = adoptionService;
 		this.ownerService = ownerService;
+		this.petService = petService;
+		this.userService = userService;
+		this.authoritiesService = authoritiesService;
+		
 	}
 
 	@InitBinder
@@ -67,7 +75,7 @@ public class AdoptionController {
 
     @GetMapping("/adoption")
 	public String petsForAdoption(ModelMap model) {
-		List<Pet> adoptionList = (List<Pet>) adoptionService.findPetsForAdoption();
+		List<Pet> adoptionList = (List<Pet>) petService.findPetsForAdoption();
 		Integer ownerId = getOwnerActivo().getId();
 		
 			if(adoptionList.iterator().hasNext()) {
@@ -96,7 +104,7 @@ public class AdoptionController {
     }
     
     @GetMapping(value = "/adoption/application/{petId}/new")
-    public String initCreationForm(@PathVariable ("petId") int petId, Map<String, Object> model) {
+    public String initCreationForm(Map<String, Object> model, @PathVariable ("petId") int petId) {
         Adoption adoption = new Adoption();
         model.put("adoption", adoption);
         return "adoption/adoptionApplication";
@@ -104,15 +112,17 @@ public class AdoptionController {
     
 
     @PostMapping(value = "/adoption/application/{petId}/new")
-    public String processCreationForm(@Valid Adoption adoption,BindingResult result,ModelMap model,@PathVariable ("petId") int petId) {
+    public String processCreationForm(Adoption adoption,BindingResult result,ModelMap model,@PathVariable ("petId") int petId) {
     	if (result.hasErrors()) {
     		
-    		model.put("errores",result.getAllErrors());
+    		//model.put("errores",result.getAllErrors());
             model.put("adoption",adoption);
             return "adoption/adoptionApplication";
         }else {
         	 int ownerId = getOwnerActivo().getId();
-           	adoptionService.saveApplication(petId, ownerId);
+        	 adoption.setApplicationOwner(this.ownerService.findOwnerById(ownerId));
+        	 adoption.setPet(this.petService.findPetById(petId));
+        	 this.adoptionService.saveAdoption(adoption);
              return "welcome";
         }
       
