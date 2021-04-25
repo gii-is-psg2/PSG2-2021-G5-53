@@ -100,10 +100,6 @@ public class PetService {
 		return petRepository.findPetsForAdoption();
 	}
 	
-	@Transactional
-	public void saveAdoption(Integer ownerId,Integer petId){
-		petRepository.saveAdoption(ownerId, petId);
-	}
 
 	
 
