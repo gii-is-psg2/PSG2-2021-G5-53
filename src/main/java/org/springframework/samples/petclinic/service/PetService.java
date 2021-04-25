@@ -96,14 +96,6 @@ public class PetService {
 		return visitRepository.findById(id);
 	}
 	
-	public List<Pet> findPetsForAdoption(){
-		return petRepository.findPetsForAdoption();
-	}
-	
-	@Transactional
-	public void saveAdoption(Integer ownerId,Integer petId){
-		petRepository.saveAdoption(ownerId, petId);
-	}
 
 	
 

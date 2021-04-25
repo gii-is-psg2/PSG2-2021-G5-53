@@ -46,7 +46,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Michael Isvy
  */
 @Controller
-public class OwnerController {
+public class OwnerController{
 
 	private static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = "owners/createOrUpdateOwnerForm";
 
@@ -154,41 +154,9 @@ public class OwnerController {
 	}
     
 
-    @GetMapping("/adoption")
-	public String petsForAdoption(ModelMap model) {
-		List<Pet> adoptionList = (List<Pet>) petService.findPetsForAdoption();
-		Integer ownerId = getOwnerActivo().getId();
-		
-			if(adoptionList.iterator().hasNext()) {
-				model.put("adoptionList", adoptionList);
-				model.put("ownerId", ownerId);
-				return "adoption/adoptionList";
-			} else {
-				model.put("message", "No hay adopciones disponibles en este momento");
-				return "adoption/adoptionList";
-			}
-		
-	}
     
-    @GetMapping("/adoption/save/{ownerId}/{petId}")
-	public String saveAdoption(@PathVariable ("ownerId") int ownerId,@PathVariable ("petId") int petId, ModelMap model) {
-    	petService.saveAdoption(ownerId, petId);
-		return "welcome";
-	}
+
     
-    private Owner getOwnerActivo() {
 
-    	UserDetails userDetails = null;
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-	    if (principal instanceof UserDetails) {
-	     userDetails = (UserDetails) principal;
-	    }
-	
-	    String userName = userDetails.getUsername();
-	    Owner owner = this.ownerService.findByUsername(userName);
-	
-	    return owner;
-	}
 
 }

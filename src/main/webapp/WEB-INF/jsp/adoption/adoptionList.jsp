@@ -15,10 +15,10 @@
         <!-- Header table for pets on adoption -->
         <thead>
             <tr>
-                <th style="width: 150px;">Name</th>
-                <th style="width: 200px;">Type</th>
-                <th style="width: 200px;">Birthdate</th>
-                <th style="width: 200px;">Adoption</th>
+                <th style="text-align: center; width: 150px;">Name</th>
+                <th style="text-align: center; width: 200px;">Type</th>
+                <th style="text-align: center; width: 200px;">Birthdate</th>
+                <th style="text-align: center; width: 200px;">Adoption</th>
             </tr>
         </thead>
 
@@ -26,22 +26,21 @@
         <tbody>
             <c:forEach items="${adoptionList}" var="pet">
                         <tr>
-                            <td>
+                            <td style="text-align: center;">
                                 <c:out value="${pet.name}" />
                             </td>
-                            <td>
+                            <td style="text-align: center;">
                                 <c:out value="${pet.type}" />
                             </td>
-                            <td>
+                            <td style="text-align: center;">
                                 <c:out value="${pet.birthDate}" />
                             </td>
-                            <td>
-                            	<spring:url value="adoption/save/{ownerId}/{petId}" var="adoptUrlSave">
-                           		<spring:param name="ownerId" value="${ownerId}"/>
-                           		<spring:param name="petId" value="${pet.id}"/>
-                           		</spring:url>
-                           		<a href="${fn:escapeXml(adoptUrlSave)}">Adopt</a>
-                           	</td> 
+                            <td style="text-align: center;">
+	                        	<spring:url value="adoption/application/{petId}" var="applicationURL">
+	                       		<spring:param name="petId" value="${pet.id}"/>
+	                       		</spring:url>
+	                       		<a href="${fn:escapeXml(applicationURL)}">Apply</a>
+                       		</td>
                         </tr>
             </c:forEach>
         </tbody>
