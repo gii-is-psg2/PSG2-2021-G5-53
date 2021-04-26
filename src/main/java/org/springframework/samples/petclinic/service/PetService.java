@@ -96,8 +96,8 @@ public class PetService {
 		return visitRepository.findById(id);
 	}
 	
-	public List<Pet> findPetsForAdoption(){
-		return petRepository.findPetsForAdoption();
+	public List<Pet> findPetsForAdoption(Integer ownerId){
+		return petRepository.findPetsForAdoption(ownerId);
 	}
 	
 

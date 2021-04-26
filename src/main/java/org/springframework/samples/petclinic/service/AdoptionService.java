@@ -51,10 +51,6 @@ public class AdoptionService {
 		adoptionRepository.saveAdoption(ownerId, petId);
 	}
 
-//	public void saveApplication(int petId, int ownerId) {
-//		adoptionRepository.saveApplication(petId,ownerId);
-//		
-//	}
 	
 	@Transactional
     public void saveAdoption(Adoption adoption) throws DataAccessException {

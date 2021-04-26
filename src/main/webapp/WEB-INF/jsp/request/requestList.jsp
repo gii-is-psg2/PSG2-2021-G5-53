@@ -8,7 +8,7 @@
 
 <petclinic:layout pageName="requests">
 
-    <h2>Adoption applications</h2><br>
+    <h2>Your adoption requests</h2><br>
 
     <table id="requestAdoption" class="table table-striped">
 
@@ -26,6 +26,7 @@
         <!-- Display pets for adoption -->
         <tbody>
             <c:forEach items="${requestAdoption}" var="request">
+            	<c:if test="${request.pet.onAdoption}">
                         <tr>
                             <td style="text-align: center;">
                                 <c:out value="${request.pet}" />
@@ -48,6 +49,7 @@
 	                       		<a href="${fn:escapeXml(confirmApplicationURL)}">Confirm</a>
                        		</td>
                         </tr>
+                        </c:if>
             </c:forEach>
         </tbody>
     </table><br>

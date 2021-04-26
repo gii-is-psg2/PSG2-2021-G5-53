@@ -61,7 +61,7 @@ public interface PetRepository extends Repository<Pet, Integer> {
 	@Query("DELETE FROM Pet pet WHERE pet.id = :id")
 	void remove(@Param("id") Integer Id);
 	
-	@Query(nativeQuery = true, value = "SELECT * FROM PETS WHERE ON_ADOPTION = TRUE")
-	List<Pet> findPetsForAdoption();
+	@Query(nativeQuery = true, value = "SELECT * FROM PETS WHERE ON_ADOPTION = TRUE AND OWNER_ID != ?1")
+	List<Pet> findPetsForAdoption(Integer ownerId);
 
 }

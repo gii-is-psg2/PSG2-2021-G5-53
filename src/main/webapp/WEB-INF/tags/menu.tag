@@ -37,12 +37,7 @@
                     <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
                     <span>Adoption</span>
                 </petclinic:menuItem>
-                
-                <petclinic:menuItem active="${name eq 'request'}" url="/adoption/requests" title="Enter to see your requests">
-                    <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-                    <span>Requests</span>
-                </petclinic:menuItem>
-
+       
                 <petclinic:menuItem active="${name eq 'causes'}" url="/causes" title="causes">
                     <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
                     <span>Causes</span>

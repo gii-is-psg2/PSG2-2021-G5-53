@@ -36,10 +36,5 @@ public interface AdoptionRepository extends CrudRepository<Adoption, Integer> {
 	@Query("SELECT adoption FROM Adoption adoption WHERE adoption.pet.owner.id = :id")
 	List<Adoption> findAllRequestsByOwnerId(int id);
 
-	
-//	@Modifying
-//	@Query(nativeQuery = true, value = "INSERT INTO ADOPTION (INFO,  APPLICATION_OWNER, PET_ID) VALUES (?2, ?1)")
-//	void saveApplication(int petId, int ownerId);
 
-	
 }

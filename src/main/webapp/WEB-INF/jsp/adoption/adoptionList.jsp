@@ -8,8 +8,10 @@
 
 <petclinic:layout pageName="adopciones">
 
-    <h2>Pets waiting for a family</h2><br>
-
+	<h2>Check your adoption requests!</h2>
+	<a class="btn btn-primary" href="/adoption/requests" role="button">My Requests</a><br><br>
+    
+	<h2>Pets waiting for a family</h2><br>
     <table id="adoptionList" class="table table-striped">
 
         <!-- Header table for pets on adoption -->
@@ -36,9 +38,9 @@
                                 <c:out value="${pet.birthDate}" />
                             </td>
                             <td style="text-align: center;">
-	                        	<spring:url value="adoption/application/{petId}/{petName}" var="applicationURL">
+	                        	<spring:url value="adoption/application/{petId}" var="applicationURL">
 	                       		<spring:param name="petId" value="${pet.id}"/>
-	                       		<spring:param name="petName" value="${pet.name}"/>
+	                       		
 	                       		</spring:url>
 	                       		<a href="${fn:escapeXml(applicationURL)}">Apply</a>
                        		</td>
