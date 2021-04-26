@@ -21,6 +21,7 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Adoption;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
@@ -29,6 +30,7 @@ import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.OwnerService;
 import org.springframework.samples.petclinic.service.PetService;
 import org.springframework.samples.petclinic.service.UserService;
+import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -110,7 +112,6 @@ public class AdoptionController {
         model.put("petName", petName);
         return "adoption/adoptionApplication";
     }
-    
 
     @PostMapping(value = "/adoption/application/{petId}/new")
     public String processCreationForm(Adoption adoption,BindingResult result,ModelMap model,@PathVariable ("petId") int petId) {
@@ -118,16 +119,16 @@ public class AdoptionController {
             model.put("adoption",adoption);
             return "adoption/adoptionApplication";
         }else {
+        	Pet pet = this.petService.findPetById(petId);
         	 int ownerId = getOwnerActivo().getId();
         	 adoption.setApplicationOwner(this.ownerService.findOwnerById(ownerId));
-        	 adoption.setPet(this.petService.findPetById(petId));
+        	 adoption.setPet(pet);
+        	 adoption.setPetOwner(pet.getOwner());
         	 this.adoptionService.saveAdoption(adoption);
              return "welcome";
         }
-      
     
     }
-    
 
     private Owner getOwnerActivo() {
 
@@ -137,11 +138,76 @@ public class AdoptionController {
 	    if (principal instanceof UserDetails) {
 	     userDetails = (UserDetails) principal;
 	    }
-	
+	    	
 	    String userName = userDetails.getUsername();
 	    Owner owner = this.ownerService.findByUsername(userName);
 	
 	    return owner;
+	 }
+    
+    
+    
+    //Show All
+  	@GetMapping("/adoption/requests")
+  	public String showAllRequest(ModelMap model) {
+  		Owner owner = getOwnerActivo();
+  		Integer ownerId = owner.getId();
+  		
+  		List<Adoption> requestAdoption = this.adoptionService.findAllRequestsByOwnerId(ownerId); 
+  		
+  		if(requestAdoption.iterator().hasNext()) {
+			model.put("requestAdoption", requestAdoption);
+			model.put("ownerId", ownerId);
+			return "request/requestList";
+		} else {
+			model.put("message", "No hay adopciones disponibles en este momento");
+			return "request/requestList";
+		}
+  	}
+  	
+  	
+  	
+  //Nueva solicitud del owner
+  	@GetMapping("/adoption/request/{ownerId}/{petId}/new")
+  	public String newRequest(ModelMap model, @PathVariable("ownerId") int ownerId, @PathVariable("petId") int petId) {
+  		Owner owner = ownerService.findOwnerById(ownerId);
+  		Pet pet = petService.findPetById(petId);
+  		model.put("owner", owner);
+  		model.put("pet", pet);
+  		return "request/createOrUpdateRequestForm";
+  	}
+  	
+  	@PostMapping("/adoption/request/{ownerId}/{petId}/new")
+  	public String processCreationForm(BindingResult result, @PathVariable("ownerId") int ownerId, @PathVariable("petId") int petId, ModelMap model) throws DataAccessException, DuplicatedPetNameException {
+  		
+  		Pet pet = petService.findPetById(petId);
+  		pet.setOnAdoption(true);
+  		
+  		this.petService.savePet(pet);
+  		return "redirect:/adoption";
+  	}
+  	
+  	
+  	
+  	//Solicitudes de adopcion de la mascota de otro owner  	
+	@GetMapping(value="/adoption/request/new/{petId}/{oldOwnerId}/{newOwnerId}")
+	public String newOwner(@PathVariable("newOwnerId") int newOwnerId, @PathVariable("oldOwnerId") int oldOwnerId, @PathVariable("petId") int petId) throws DataAccessException, DuplicatedPetNameException {
+
+		Pet pet = this.petService.findPetById(petId);
+		
+		Owner oldOwner = this.ownerService.findOwnerById(oldOwnerId);
+		Owner newOwner = this.ownerService.findOwnerById(newOwnerId);
+		
+		pet.setOnAdoption(false);
+		oldOwner.removePet(pet);
+		newOwner.addPet(pet);
+		
+		this.petService.savePet(pet);
+		this.ownerService.saveOwner(oldOwner);
+		this.ownerService.saveOwner(newOwner);
+		
+		return "welcome";
 	}
+  	    
 
 }
