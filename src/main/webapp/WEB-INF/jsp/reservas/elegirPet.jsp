@@ -20,6 +20,7 @@
         </thead>
         <tbody>
         <c:forEach items="${pets}" var="pet">
+        	<c:if test="${!pet.onAdoption}">
             <tr>
                 <td>
                     <c:out value="${pet.name}"/>
@@ -30,6 +31,7 @@
 	                </spring:url>
    					<a href="${fn:escapeXml(choosePetUrl)}" class="btn btn-default">Book!</a>
              	</td>
+             	</c:if>
         </c:forEach>
         
         </tbody>

@@ -12,6 +12,10 @@ import org.springframework.stereotype.Repository;
 public interface ReservaRepository extends CrudRepository<Reserva, Integer>{
 	
 	 Reserva findById(int reservaId) throws DataAccessException;
+	 
+	 @Query(value = "SELECT * FROM RESERVAS WHERE PETRESERVA = ?1", 
+				nativeQuery = true)
+	 List<Reserva> findReservasByPetId(int petId) throws DataAccessException;
 	
 	
 	

@@ -1,4 +1,5 @@
 package org.springframework.samples.petclinic.web;
+
 import java.util.List;
 import java.util.Map;
 
@@ -26,7 +27,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class ReservaController {
 	
 	private  ReservaService reservaService;
-	
 	private OwnerService ownerService;
 	private PetService petService;
 	
@@ -60,39 +60,50 @@ public class ReservaController {
         return  owner;
 	}
 	
-	@GetMapping(value = "/reservas/new")
-	public String initCreationForm(Map<String, Object> model) {
+	@GetMapping(value = "/reservas/{petId}/new")
+	public String initCreationForm(Map<String, Object> model, @PathVariable("petId") Integer petId) {
 		Reserva reserva = new Reserva();
 		model.put("reserva", reserva);
 		return "reservas/createOrUpdateReservaForm";
 	}
 	
-	@PostMapping(value = "/reservas/new")
-	public String processCreationForm(@Valid Reserva reserva, BindingResult result,ModelMap model) {
+	@PostMapping(value = "/reservas/{petId}/new")
+	public String processCreationForm(@Valid Reserva reserva, BindingResult result,ModelMap model, @PathVariable("petId") Integer petId) {
 		if (result.hasErrors()) {
 			model.put("reserva",reserva);
 			return "reservas/createOrUpdateReservaForm";
 		}
 		else {
+			List<Reserva> reservasByPet = this.reservaService.findReservasByPetId(petId);
+			int solapamiento = this.reservaService.reservasSolapadas(reserva, reservasByPet);
+			if(solapamiento!=-1) {
+				System.out.println("Solapamiento = " + solapamiento);
+				Reserva reservaEncontrada = this.reservaService.findById(solapamiento);
+				System.out.println("Reserva encontrada =" + reservaEncontrada.getId());
+				model.put("reserva", reservaEncontrada);
+				model.put("petId", petId);
+				return "reservas/reservasSolapadas";
+			} else {
+			Pet pet = this.petService.findPetById(petId);
 			Owner owner = getOwnerActivo();
 			reserva.setOwner(owner);
+			reserva.setPet(pet);
 			this.reservaService.saveReserva(reserva);
-			return "redirect:/habitaciones/" + String.valueOf(reserva.getId()) + "/allHabitaciones";
+			return "welcome";
+		}
 		}
 	}
 	
-	
-	@GetMapping(value = "/reservas/{reservaId}/allHabitacionesDisponibles/{habitacionId}/choosePet")
-	public String elegirPet(@PathVariable("reservaId") int reservaId, @PathVariable("habitacionId") int habitacionId,
-			ModelMap model) {
-		Reserva reserva = this.reservaService.findById(reservaId);
-		Owner owner = reserva.getOwner();
+
+	@GetMapping(value = "/reservas/choosePet")
+	public String elegirPet(ModelMap model) {
+		Owner owner = getOwnerActivo();
 		List<Pet> pets = owner.getPets();
-		model.put("reservaId", reservaId);
-		model.put("habitacionId", habitacionId);
 		model.put("pets", pets);
 		return "reservas/elegirPet";
 	}
+	
+	
 	
 	
 
