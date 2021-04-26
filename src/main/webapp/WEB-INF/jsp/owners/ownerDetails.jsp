@@ -93,13 +93,22 @@
                                 <a href="${fn:escapeXml(visitUrl)}">Add Visit</a>
                             </td>
                         </tr>
-                        <td>
-                            <spring:url value="/owners/{ownerId}/pets/{petId}/delete" var="petRemoveUrl">
-                                <spring:param name="ownerId" value="${owner.id}"/>
-                                <spring:param name="petId" value="${pet.id}"/>
-                            </spring:url>
-                            <a href="${fn:escapeXml(petRemoveUrl)}">Delete Pet</a>
-                        </td>  
+                        <tr>
+                        	<td>
+                            	<spring:url value="/owners/{ownerId}/pets/{petId}/delete" var="petRemoveUrl">
+                                	<spring:param name="ownerId" value="${owner.id}"/>
+                                	<spring:param name="petId" value="${pet.id}"/>
+                            	</spring:url>
+                            	<a href="${fn:escapeXml(petRemoveUrl)}">Delete Pet</a>
+                        	</td> 
+                          	<td>
+                            	<spring:url value="/adoption/request/{ownerId}/{petId}/new" var="requestAdoption">
+                               		<spring:param name="ownerId" value="${owner.id}"/>
+                              	 	<spring:param name="petId" value="${pet.id}"/>
+                           	 	</spring:url>
+                            	<a href="${fn:escapeXml(requestAdoption)}">Put on Adoption</a>
+                        	</td> 
+                        </tr>
                     </table>
                 </td>
             </tr>

@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.web;
 import java.util.List;
 import java.util.Map;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +21,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
 @Controller
 public class ReservaController {
-
+	
 	private  ReservaService reservaService;
+	
 	private OwnerService ownerService;
 	private PetService petService;
-
+	
 	@Autowired
 	public ReservaController(ReservaService reservaService, OwnerService ownerService,
 			PetService petService) {
@@ -56,56 +59,41 @@ public class ReservaController {
         Owner owner = this.ownerService.findByUsername(userName);
         return  owner;
 	}
-
 	
-	@GetMapping(value = "/reservas/{petId}/new")
-	public String initCreationForm(Map<String, Object> model, @PathVariable("petId") Integer petId) {
+	@GetMapping(value = "/reservas/new")
+	public String initCreationForm(Map<String, Object> model) {
 		Reserva reserva = new Reserva();
 		model.put("reserva", reserva);
 		return "reservas/createOrUpdateReservaForm";
 	}
-
 	
-	@PostMapping(value = "/reservas/{petId}/new")
-	public String processCreationForm(@Valid Reserva reserva, BindingResult result,ModelMap model, @PathVariable("petId") Integer petId) {
+	@PostMapping(value = "/reservas/new")
+	public String processCreationForm(@Valid Reserva reserva, BindingResult result,ModelMap model) {
 		if (result.hasErrors()) {
 			model.put("reserva",reserva);
 			return "reservas/createOrUpdateReservaForm";
 		}
 		else {
-			List<Reserva> reservasByPet = this.reservaService.findReservasByPetId(petId);
-			int solapamiento = this.reservaService.reservasSolapadas(reserva, reservasByPet);
-			if(solapamiento!=-1) {
-				System.out.println("Solapamiento = " + solapamiento);
-				Reserva reservaEncontrada = this.reservaService.findById(solapamiento);
-				System.out.println("Reserva encontrada =" + reservaEncontrada.getId());
-				model.put("reserva", reservaEncontrada);
-				model.put("petId", petId);
-				return "reservas/reservasSolapadas";
-			} else {
-			Pet pet = this.petService.findPetById(petId);
 			Owner owner = getOwnerActivo();
 			reserva.setOwner(owner);
-			reserva.setPet(pet);
 			this.reservaService.saveReserva(reserva);
-			return "welcome";
-		}
+			return "redirect:/habitaciones/" + String.valueOf(reserva.getId()) + "/allHabitaciones";
 		}
 	}
-
 	
-
-
 	
-	@GetMapping(value = "/reservas/choosePet")
-	public String elegirPet(ModelMap model) {
-		Owner owner = getOwnerActivo();
+	@GetMapping(value = "/reservas/{reservaId}/allHabitacionesDisponibles/{habitacionId}/choosePet")
+	public String elegirPet(@PathVariable("reservaId") int reservaId, @PathVariable("habitacionId") int habitacionId,
+			ModelMap model) {
+		Reserva reserva = this.reservaService.findById(reservaId);
+		Owner owner = reserva.getOwner();
 		List<Pet> pets = owner.getPets();
+		model.put("reservaId", reservaId);
+		model.put("habitacionId", habitacionId);
 		model.put("pets", pets);
 		return "reservas/elegirPet";
 	}
-
 	
-
+	
 
 }

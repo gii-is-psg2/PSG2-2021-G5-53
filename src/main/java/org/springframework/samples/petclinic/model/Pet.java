@@ -36,8 +36,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * Simple business object representing a pet.
@@ -61,6 +59,10 @@ public class Pet extends NamedEntity {
 	@ManyToOne
 	@JoinColumn(name = "owner_id")
 	private Owner owner;
+
+	@Column(name = "on_adoption")
+	private boolean onAdoption;
+	
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pet", fetch = FetchType.EAGER)
 	@OnDelete(action = OnDeleteAction.CASCADE)
@@ -90,6 +92,14 @@ public class Pet extends NamedEntity {
 		this.owner = owner;
 	}
 
+	public boolean isOnAdoption() {
+		return onAdoption;
+	}
+
+	public void setOnAdoption(boolean onAdoption) {
+		this.onAdoption = onAdoption;
+	}
+	
 	protected Set<Visit> getVisitsInternal() {
 		if (this.visits == null) {
 			this.visits = new HashSet<>();
