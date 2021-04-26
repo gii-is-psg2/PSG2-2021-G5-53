@@ -4,56 +4,51 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<petclinic:layout pageName="owners">
-    <h2>Owners</h2>
+<petclinic:layout pageName="requests">
 
-    <table id="ownersTable" class="table table-striped">
+    <h2>Adoption applications</h2><br>
+
+    <table id="requestAdoption" class="table table-striped">
+
+        <!-- Header table for pets on adoption -->
         <thead>
-        <tr>
-            <th style="width: 150px;">Name</th>
-            <th style="width: 200px;">Address</th>
-            <th>City</th>
-            <th style="width: 120px">Telephone</th>
-            <th>Pets</th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach items="${selections}" var="owner">
             <tr>
-                <td>
-                    <spring:url value="/owners/{ownerId}" var="ownerUrl">
-                        <spring:param name="ownerId" value="${owner.id}"/>
-                    </spring:url>
-                    <a href="${fn:escapeXml(ownerUrl)}"><c:out value="${owner.firstName} ${owner.lastName}"/></a>
-                </td>
-                <td>
-                    <c:out value="${owner.address}"/>
-                </td>
-                <td>
-                    <c:out value="${owner.city}"/>
-                </td>
-                <td>
-                    <c:out value="${owner.telephone}"/>
-                </td>
-                <td>
-                    <c:forEach var="pet" items="${owner.pets}">
-                        <c:out value="${pet.name} "/>
-                    </c:forEach>
-                </td>
-                
-      
-<!--
-                <td> 
-                    <c:out value="${owner.user.username}"/> 
-                </td>
-                <td> 
-                   <c:out value="${owner.user.password}"/> 
-                </td> 
--->
-                
+                <th style="text-align: center; width: 150px;">Pet name</th>
+                <th style="text-align: center; width: 200px;">Info</th>
+                <th style="text-align: center; width: 200px;">Application owner</th>
+                <th style="text-align: center; width: 200px;">Pet owner</th>
+                <th style="text-align: center; width: 200px;">Confirm</th>
             </tr>
-        </c:forEach>
+        </thead>
+
+        <!-- Display pets for adoption -->
+        <tbody>
+            <c:forEach items="${requestAdoption}" var="request">
+                        <tr>
+                            <td style="text-align: center;">
+                                <c:out value="${request.pet}" />
+                            </td>
+                            <td style="text-align: center;">
+                                <c:out value="${request.applicationInfo}" />
+                            </td>
+                            <td style="text-align: center;">
+                                <c:out value="${request.applicationOwner.firstName}" />
+                            </td>
+                            <td style="text-align: center;">
+	                       		<c:out value="${request.petOwner.firstName}" />
+                       		</td>
+                       		<td style="text-align: center;">
+	                        	<spring:url value="/adoption/request/new/{petId}/{oldOwnerId}/{newOwnerId}" var="confirmApplicationURL">
+	                       		<spring:param name="petId" value="${request.pet.id}"/>
+	                       		<spring:param name="oldOwnerId" value="${request.petOwner.id}"/>
+	                       		<spring:param name="newOwnerId" value="${request.applicationOwner.id}"/>
+	                       		</spring:url>
+	                       		<a href="${fn:escapeXml(confirmApplicationURL)}">Confirm</a>
+                       		</td>
+                        </tr>
+            </c:forEach>
         </tbody>
-    </table>
+    </table><br>
 </petclinic:layout>

@@ -15,6 +15,8 @@
  */
 package org.springframework.samples.petclinic.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -29,6 +31,10 @@ public interface AdoptionRepository extends CrudRepository<Adoption, Integer> {
 	@Modifying
 	@Query(nativeQuery = true, value = "UPDATE PETS SET ON_ADOPTION=FALSE, OWNER_ID=?1 WHERE ID=?2")
 	void saveAdoption(@Param("ownerId") Integer id, @Param("petId") Integer petId);
+	
+	
+	@Query("SELECT adoption FROM Adoption adoption WHERE adoption.pet.owner.id = :id")
+	List<Adoption> findAllRequestsByOwnerId(int id);
 
 	
 //	@Modifying
