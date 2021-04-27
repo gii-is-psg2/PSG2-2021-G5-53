@@ -16,6 +16,7 @@
 package org.springframework.samples.petclinic.repository;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.Modifying;
@@ -68,6 +69,9 @@ public interface OwnerRepository extends Repository<Owner, Integer> {
 
 	@Query(value = "SELECT * FROM OWNERS WHERE OWNERS.USERNAME LIKE ?1", nativeQuery = true)
 	public Owner findByUsername(String username);
+	
+	@Query("SELECT owner FROM Owner owner ")
+	List<Owner> findAllOwners() throws DataAccessException;
 
 
 }

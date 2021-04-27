@@ -39,12 +39,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/admin/**").hasAnyAuthority("admin")
 				.antMatchers("/owners/**").hasAnyAuthority("owner","admin")
 				.antMatchers("/reservas/**").hasAnyAuthority("owner")
+				.antMatchers("/adoption/**").hasAnyAuthority("owner")
+				.antMatchers("/request/**").hasAnyAuthority("owner")
 				.antMatchers("/habitaciones/**").hasAnyAuthority("owner")
 				.antMatchers("/vets/**").authenticated()
 				.antMatchers("/propietarios/**").hasAnyAuthority("owner","admin")				
 				.antMatchers("/veterinarios/**").authenticated()
 				.antMatchers("/**.xml").authenticated()
 				.antMatchers("/bienvenido").permitAll()
+				.antMatchers("/causes/**").permitAll()
 				.anyRequest().denyAll()
 				.and()
 				 	.formLogin()
@@ -83,5 +86,3 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	}
 	
 }
-
-

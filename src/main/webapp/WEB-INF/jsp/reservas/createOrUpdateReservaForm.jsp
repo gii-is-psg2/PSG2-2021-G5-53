@@ -1,3 +1,4 @@
+
 <%@ page session="false" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -28,10 +29,9 @@
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                        <button class="btn btn-default" type="submit">Find room</button>
+                        <button class="btn btn-default" type="submit">Book!</button>
             </div>
         </div>
     </form:form>
     </jsp:body>
-   
 </petclinic:layout>
