@@ -45,10 +45,10 @@ In the retrospective meeting, the team has a discussion about those results.
 | 21/04/2021    |       -       | :fearful:     |       -        |    :worried:   |       -        |        -       |
 | 22/04/2021    |       -       |        -      |       -        |       -        |                |        -       |
 | 23/04/2021    |  :worried:    |        -      |       -        |       -        |                |    :smiley:    |
-| 24/04/2021    |       -       |        -      |       -        |       -        |                |                |
-| 25/04/2021    |:neutral_face: |        -      |  :worried:     | :neutral_face: |                |                |
-| 26/04/2021    |:neutral_face: |        -      |:fearful:       |    :smiley:    |                |                |
-| 27/04/2021    |:smiley:       |               |                |                |                |                |
+| 24/04/2021    |       -       |        -      |       -        |       -        |                |       -        |
+| 25/04/2021    |:neutral_face: |        -      |  :worried:     | :neutral_face: |                |:neutral_face:  |
+| 26/04/2021    |:neutral_face: |        -      |:fearful:       |    :smiley:    |                |:neutral_face:  |
+| 27/04/2021    |:smiley:       |               |                |                |                |   :smiley:     |
 | 28/04/2021    |               |               |                |                |                |                |
 | 29/04/2021    |               |               |                |                |                |                |
 | 30/04/2021    |               |               |                |                |                |                |
