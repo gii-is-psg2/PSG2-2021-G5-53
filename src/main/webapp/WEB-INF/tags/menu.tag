@@ -28,7 +28,7 @@
                     <span>Vets</span>
                 </petclinic:menuItem>
 
-                <petclinic:menuItem active="${name eq 'reservas'}" url="/reservas/new" title="petHotel">
+                <petclinic:menuItem active="${name eq 'reservas'}" url="/reservas/choosePet" title="petHotel">
                     <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
                     <span>Book</span>
                 </petclinic:menuItem>

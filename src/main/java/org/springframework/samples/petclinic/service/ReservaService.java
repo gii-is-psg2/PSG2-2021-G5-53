@@ -29,5 +29,32 @@ public class ReservaService {
 	public Reserva findById(int reservaId) throws DataAccessException {
 		return reservaRepository.findById(reservaId);
 	}
+	
+	public List<Reserva> findReservasByPetId(int petId) throws DataAccessException{
+		return reservaRepository.findReservasByPetId(petId);
+	}
+	
+	//Devuelve -1 si no hay solapamiento. 
+	//Si hay solapamiento, devuelve un entero que representa el id 
+	//de la primera reserva que produce solapamiento
+	public Integer reservasSolapadas(Reserva r1, List<Reserva> reservas) {
+		int indice = -1;
+		int i = 0;
+		if(reservas.size() == 0) {
+			return indice;
+		} else {
+		while(i<reservas.size() && indice == -1) {
+			Reserva reservaEscogida = reservas.get(i);
+			if((r1.getFechaInicio().isBefore(reservaEscogida.getFechaFin()) ||
+					r1.getFechaInicio().isEqual((reservaEscogida.getFechaFin()))) &&
+					(reservaEscogida.getFechaInicio().isBefore(r1.getFechaFin()) ||
+							reservaEscogida.getFechaInicio().isEqual(r1.getFechaFin()))){
+				indice = reservaEscogida.getId();
+			}
+		}
+		}
+		
+		return indice;
+	}
 }
 
