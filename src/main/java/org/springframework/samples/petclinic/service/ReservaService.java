@@ -40,7 +40,7 @@ public class ReservaService {
 	public Integer reservasSolapadas(Reserva r1, List<Reserva> reservas) {
 		int indice = -1;
 		int i = 0;
-		if(reservas.size() == 0) {
+		if(reservas.isEmpty()) {
 			return indice;
 		} else {
 		while(i<reservas.size() && indice == -1) {

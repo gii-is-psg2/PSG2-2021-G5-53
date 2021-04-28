@@ -18,8 +18,6 @@ package org.springframework.samples.petclinic.web;
 import java.util.List;
 import java.util.Map;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Adoption;
@@ -79,7 +77,7 @@ public class AdoptionController {
 	public String petsForAdoption(ModelMap model) {
 		
 		Integer ownerId = getOwnerActivo().getId();
-		List<Pet> adoptionList = (List<Pet>) petService.findPetsForAdoption(ownerId);
+		List<Pet> adoptionList = petService.findPetsForAdoption(ownerId);
 		
 			if(adoptionList.iterator().hasNext()) {
 				model.put("adoptionList", adoptionList);
@@ -142,9 +140,9 @@ public class AdoptionController {
 	    }
 	    	
 	    String userName = userDetails.getUsername();
-	    Owner owner = this.ownerService.findByUsername(userName);
+	    
 	
-	    return owner;
+	    return this.ownerService.findByUsername(userName);
 	 }
     
     

@@ -56,8 +56,7 @@ public class ReservaController {
           userDetails = (UserDetails) principal;
         }
         String userName = userDetails.getUsername();
-        Owner owner = this.ownerService.findByUsername(userName);
-        return  owner;
+        return  this.ownerService.findByUsername(userName);
 	}
 	
 	@GetMapping(value = "/reservas/{petId}/new")

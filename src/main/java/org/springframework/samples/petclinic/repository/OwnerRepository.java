@@ -65,7 +65,7 @@ public interface OwnerRepository extends Repository<Owner, Integer> {
 
 	@Modifying
 	@Query("DELETE FROM Owner owner WHERE owner.id = :id")
-	void remove(@Param("id") Integer Id);
+	void remove(@Param("id") Integer id);
 
 	@Query(value = "SELECT * FROM OWNERS WHERE OWNERS.USERNAME LIKE ?1", nativeQuery = true)
 	public Owner findByUsername(String username);

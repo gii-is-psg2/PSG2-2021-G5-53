@@ -120,9 +120,8 @@ public class OwnerService {
 
 		String res = us.getUsername();		
 		Owner o = (ownerRepository.findAllOwners().stream().filter(x -> x.getUser().getUsername().equals(res))).collect(Collectors.toList()).get(0);           
-		Integer ownerId = o.getId();
 		
-		return ownerId;
+		return o.getId();
 	}
 	
 }

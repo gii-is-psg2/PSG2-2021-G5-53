@@ -16,8 +16,6 @@
 package org.springframework.samples.petclinic.web;
 
 import java.util.Collection;
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;

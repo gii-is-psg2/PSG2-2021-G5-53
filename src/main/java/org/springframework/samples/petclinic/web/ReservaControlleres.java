@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class ReservaController_es {
+public class ReservaControlleres {
 	
 	private  ReservaService reservaService;
 	
@@ -33,7 +33,7 @@ public class ReservaController_es {
 	private PetService petService;
 	
 	@Autowired
-	public ReservaController_es(ReservaService reservaService, OwnerService ownerService,
+	public ReservaControlleres(ReservaService reservaService, OwnerService ownerService,
 			PetService petService) {
 		this.reservaService = reservaService;
 		this.ownerService = ownerService;
@@ -58,8 +58,7 @@ public class ReservaController_es {
           userDetails = (UserDetails) principal;
         }
         String userName = userDetails.getUsername();
-        Owner owner = this.ownerService.findByUsername(userName);
-        return  owner;
+        return  this.ownerService.findByUsername(userName);
 	}
 	
 	@GetMapping(value = "/reservas/nueva")
@@ -79,7 +78,7 @@ public class ReservaController_es {
 			Owner owner = getOwnerActivo();
 			reserva.setOwner(owner);
 			this.reservaService.saveReserva(reserva);
-			return "redirect:/habitaciones/" + String.valueOf(reserva.getId()) + "/todasLasHabitaciones";
+			return "redirect:/habitaciones/" + reserva.getId() + "/todasLasHabitaciones";
 		}
 	}
 	
