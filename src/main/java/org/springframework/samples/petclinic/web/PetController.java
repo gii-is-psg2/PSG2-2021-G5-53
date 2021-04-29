@@ -23,7 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
-import org.springframework.samples.petclinic.repository.PetRepository;
+
 import org.springframework.samples.petclinic.service.OwnerService;
 import org.springframework.samples.petclinic.service.PetService;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
@@ -51,7 +51,7 @@ public class PetController {
 	private static final String REDIRECT_OWNERID = "redirect:/owners/{ownerId}";
 	private final PetService petService;
     private final OwnerService ownerService;
-    private PetRepository petRepository;
+
 
 	@Autowired
 	public PetController(PetService petService, OwnerService ownerService) {
