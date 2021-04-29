@@ -17,6 +17,8 @@ package org.springframework.samples.petclinic.service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -30,6 +32,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+
 /**
  * Mostly used as a facade for all Petclinic controllers Also a placeholder
  * for @Transactional and @Cacheable annotations
@@ -38,6 +41,8 @@ import org.springframework.util.StringUtils;
  */
 @Service
 public class PetService {
+	 Logger logger = Logger.getLogger(PetService.class.getName());
+     
 
 	private PetRepository petRepository;
 	
@@ -68,8 +73,8 @@ public class PetService {
 
 	@Transactional(rollbackFor = DuplicatedPetNameException.class)
 	public void savePet(Pet pet) throws DataAccessException, DuplicatedPetNameException {
-			Pet otherPet=pet.getOwner().getPetwithIdDifferent(pet.getName(), pet.getId());
-            if (StringUtils.hasLength(pet.getName()) &&  (otherPet!= null && otherPet.getId()!=pet.getId())) {            	
+			var otherPet=pet.getOwner().getPetwithIdDifferent(pet.getName(), pet.getId());
+            if (StringUtils.hasLength(pet.getName()) &&  (otherPet!= null && !otherPet.getId().equals(pet.getId()))) {            	
             	throw new DuplicatedPetNameException();
             }else
                 petRepository.save(pet);                
@@ -87,7 +92,7 @@ public class PetService {
 	
 	@Transactional
 	public void removeVisit(Visit v) throws DataAccessException {
-		System.out.println("He llegao");
+		logger.log(Level.ALL, "He llegao");
 		visitRepository.delete(v);
 	}
 	

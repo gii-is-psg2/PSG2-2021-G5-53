@@ -81,13 +81,36 @@ public class OwnerService {
 	@Transactional
 	public boolean isOwner() throws DataAccessException {
 		
-		boolean res= false;
+		var res= false;
 			
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		var auth = SecurityContextHolder.getContext().getAuthentication();
 		Object sesion = auth.getPrincipal();
 		UserDetails us = null;
+		/*
+	public Integer devolverOwnerId() {
+		
+		var auth = SecurityContextHolder.getContext().getAuthentication();
+		Object sesion = auth.getPrincipal();
+		UserDetails us = null;
+		try {
+		if (sesion instanceof UserDetails) us = (UserDetails) sesion;
+
+				
+		
+		}catch(Exception e){
+			  e.printStackTrace();
+	}
+		String res = us.getUsername();
+		Owner o = (ownerRepository.findAllOwners().stream().filter(x -> x.getUser().getUsername().equals(res))).collect(Collectors.toList()).get(0);           
+		
+		return o.getId();
+	
+}}*/
+		try {
 			if (sesion instanceof UserDetails) {
 				us = (UserDetails) sesion;
+			}}catch(Exception e){
+				  e.printStackTrace();
 			}
 			if (us.getAuthorities().iterator().next().getAuthority().equals("owner")) {
 				res=true;
@@ -112,17 +135,20 @@ public class OwnerService {
 	
 	public Integer devolverOwnerId() {
 		
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		var auth = SecurityContextHolder.getContext().getAuthentication();
 		Object sesion = auth.getPrincipal();
 		UserDetails us = null;
-		
+		try {
 		if (sesion instanceof UserDetails) us = (UserDetails) sesion;
 
-		String res = us.getUsername();		
-		Owner o = (ownerRepository.findAllOwners().stream().filter(x -> x.getUser().getUsername().equals(res))).collect(Collectors.toList()).get(0);           
-		Integer ownerId = o.getId();
+				
 		
-		return ownerId;
+		}catch(Exception e){
+			  e.printStackTrace();
 	}
+		String res = us.getUsername();
+		Owner o = (ownerRepository.findAllOwners().stream().filter(x -> x.getUser().getUsername().equals(res))).collect(Collectors.toList()).get(0);           
+		
+		return o.getId();
 	
-}
+}}
