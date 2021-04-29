@@ -81,9 +81,9 @@ public class OwnerService {
 	@Transactional
 	public boolean isOwner() throws DataAccessException {
 		
-		boolean res= false;
+		var res= false;
 			
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		var auth = SecurityContextHolder.getContext().getAuthentication();
 		Object sesion = auth.getPrincipal();
 		UserDetails us = null;
 			if (sesion instanceof UserDetails) {
@@ -112,7 +112,7 @@ public class OwnerService {
 	
 	public Integer devolverOwnerId() {
 		
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		var auth = SecurityContextHolder.getContext().getAuthentication();
 		Object sesion = auth.getPrincipal();
 		UserDetails us = null;
 		

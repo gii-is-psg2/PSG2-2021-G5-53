@@ -82,7 +82,7 @@ public class PetController {
 
 	@GetMapping(value = "/pets/new")
 	public String initCreationForm(Owner owner, ModelMap model) {
-		Pet pet = new Pet();
+		var pet = new Pet();
 		owner.addPet(pet);
 		model.put("pet", pet);
 		return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
@@ -108,7 +108,7 @@ public class PetController {
 
 	@GetMapping(value = "/pets/{petId}/edit")
 	public String initUpdateForm(@PathVariable("petId") int petId, ModelMap model) {
-		Pet pet = this.petService.findPetById(petId);
+		var pet = this.petService.findPetById(petId);
 		model.put("pet", pet);
 		return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
 	}
@@ -130,7 +130,7 @@ public class PetController {
 			return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
 		}
 		else {
-            Pet petToUpdate=this.petService.findPetById(petId);
+            var petToUpdate=this.petService.findPetById(petId);
 			BeanUtils.copyProperties(pet, petToUpdate, "id","owner","visits");                                                                                  
                     try {                    
                         this.petService.savePet(petToUpdate);                    

@@ -63,7 +63,7 @@ public class ReservaControlleres {
 	
 	@GetMapping(value = "/reservas/nueva")
 	public String initCreationForm(Map<String, Object> model) {
-		Reserva reserva = new Reserva();
+		var reserva = new Reserva();
 		model.put("reserva", reserva);
 		return "reservas/createOrUpdateReservaForm_es";
 	}
@@ -75,7 +75,7 @@ public class ReservaControlleres {
 			return "reservas/createOrUpdateReservaForm_es";
 		}
 		else {
-			Owner owner = getOwnerActivo();
+			var owner = getOwnerActivo();
 			reserva.setOwner(owner);
 			this.reservaService.saveReserva(reserva);
 			return "redirect:/habitaciones/" + reserva.getId() + "/todasLasHabitaciones";
@@ -87,8 +87,8 @@ public class ReservaControlleres {
 	@GetMapping(value = "/reservas/{reservaId}/todasLasHabitacionesDisponibles/{habitacionId}/elegirMascota")
 	public String elegirPet(@PathVariable("reservaId") int reservaId, @PathVariable("habitacionId") int habitacionId,
 			ModelMap model) {
-		Reserva reserva = this.reservaService.findById(reservaId);
-		Owner owner = reserva.getOwner();
+		var reserva = this.reservaService.findById(reservaId);
+		var owner = reserva.getOwner();
 		List<Pet> pets = owner.getPets();
 		model.put("reservaId", reservaId);
 		model.put("habitacionId", habitacionId);

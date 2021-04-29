@@ -57,7 +57,7 @@ public class VetController {
 		// objects
 		// so it is simpler for Object-Xml mapping
 		
-		Vets vets = new Vets();
+		var vets = new Vets();
 		vets.getVetList().addAll(this.vetService.findVets());
 		model.put("vets", vets);
 		
@@ -69,7 +69,7 @@ public class VetController {
 	@GetMapping(value = "/vets/new")
 	public String initCreationForm(Map<String,Object> model) {
 		
-		Vet vet = new Vet();
+		var vet = new Vet();
 		model.put("vet",vet);
 		
 		return VIEWS_VET_CREATE_FORM;
@@ -91,7 +91,7 @@ public class VetController {
 		// Here we are returning an object of type 'Vets' rather than a collection of Vet
 		// objects
 		// so it is simpler for JSon/Object mapping
-		Vets vets = new Vets();
+		var vets = new Vets();
 		vets.getVetList().addAll(this.vetService.findVets());
 		return vets;
 	}
@@ -100,7 +100,7 @@ public class VetController {
 	
 	@GetMapping(value = "/vets/{vetId}/edit")
 	public String initUpdateOwnerForm(@PathVariable("vetId") int vetId, Model model) {
-		Vet vet = this.vetService.findById(vetId);
+		var vet = this.vetService.findById(vetId);
 		model.addAttribute(vet);
 		return VIEWS_VET_UPDATE_FORM;
 	}

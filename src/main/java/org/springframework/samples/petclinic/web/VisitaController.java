@@ -59,8 +59,8 @@ public class VisitaController {
 	 */
 	@ModelAttribute("visit")
 	public Visit loadPetWithVisit(@PathVariable("petId") int petId) {
-		Pet pet = this.petService.findPetById(petId);
-		Visit visit = new Visit();
+		var pet = this.petService.findPetById(petId);
+		var visit = new Visit();
 		pet.addVisit(visit);
 		return visit;
 	}

@@ -106,7 +106,7 @@ public class AdoptionController {
     
     @GetMapping(value = "/adoption/application/{petId}/new")
     public String initCreationForm(Map<String, Object> model, @PathVariable ("petId") int petId) {
-        Adoption adoption = new Adoption();
+        var adoption = new Adoption();
         model.put("adoption", adoption);
         return "adoption/adoptionApplication";
     }
@@ -119,7 +119,7 @@ public class AdoptionController {
             model.put("adoption",adoption);
             return "adoption/adoptionApplication";
         }else {
-        	Pet pet = this.petService.findPetById(petId);
+        	var pet = this.petService.findPetById(petId);
         	 int ownerId = getOwnerActivo().getId();
         	 adoption.setApplicationOwner(this.ownerService.findOwnerById(ownerId));
         	 adoption.setPet(pet);
@@ -150,7 +150,7 @@ public class AdoptionController {
     //Show All
   	@GetMapping("/adoption/requests")
   	public String showAllRequest(ModelMap model) {
-  		Owner owner = getOwnerActivo();
+  		var owner = getOwnerActivo();
   		Integer ownerId = owner.getId();
   		
   		List<Adoption> requestAdoption = this.adoptionService.findAllRequestsByOwnerId(ownerId); 
@@ -170,8 +170,8 @@ public class AdoptionController {
   //Nueva solicitud del owner
   	@GetMapping("/adoption/request/{ownerId}/{petId}/new")
   	public String newRequest(ModelMap model, @PathVariable("ownerId") int ownerId, @PathVariable("petId") int petId) {
-  		Owner owner = ownerService.findOwnerById(ownerId);
-  		Pet pet = petService.findPetById(petId);
+  		var owner = ownerService.findOwnerById(ownerId);
+  		var pet = petService.findPetById(petId);
   		model.put("owner", owner);
   		model.put("pet", pet);
   		return "request/createOrUpdateRequestForm";
@@ -180,7 +180,7 @@ public class AdoptionController {
   	@PostMapping("/adoption/request/{ownerId}/{petId}/new")
   	public String processCreationForm( @PathVariable("ownerId") int ownerId, @PathVariable("petId") int petId, ModelMap model) throws DataAccessException, DuplicatedPetNameException {
   		
-  		Pet pet = petService.findPetById(petId);
+  		var pet = petService.findPetById(petId);
   		pet.setOnAdoption(true);
   		
   		this.petService.savePet(pet);
@@ -193,10 +193,10 @@ public class AdoptionController {
 	@GetMapping(value="/adoption/request/new/{petId}/{oldOwnerId}/{newOwnerId}")
 	public String newOwner(@PathVariable("newOwnerId") int newOwnerId, @PathVariable("oldOwnerId") int oldOwnerId, @PathVariable("petId") int petId) throws DataAccessException, DuplicatedPetNameException {
 
-		Pet pet = this.petService.findPetById(petId);
+		var pet = this.petService.findPetById(petId);
 		
-		Owner oldOwner = this.ownerService.findOwnerById(oldOwnerId);
-		Owner newOwner = this.ownerService.findOwnerById(newOwnerId);
+		var oldOwner = this.ownerService.findOwnerById(oldOwnerId);
+		var newOwner = this.ownerService.findOwnerById(newOwnerId);
 		
 		pet.setOnAdoption(false);
 		oldOwner.removePet(pet);

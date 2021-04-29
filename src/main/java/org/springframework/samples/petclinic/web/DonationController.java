@@ -40,7 +40,7 @@ public class DonationController {
 
     @GetMapping(value = "/donations/new")
     public String initCreationForm(Cause cause, ModelMap model) {
-        Donation donation = new Donation();
+        var donation = new Donation();
         cause.addDonation(donation);
     	donation.setDate(LocalDate.now());
         model.put("donation", donation);

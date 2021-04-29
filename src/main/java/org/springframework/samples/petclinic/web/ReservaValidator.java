@@ -19,10 +19,10 @@ public class ReservaValidator implements Validator{
 	
 	@Override
 	public void validate(Object obj, Errors errors) {
-		Reserva reserva = (Reserva) obj;
+		var reserva = (Reserva) obj;
 		LocalDate fechaInicio = reserva.getFechaInicio();
 		LocalDate fechaFin = reserva.getFechaFin();
-		LocalDate fechaActual = LocalDate.now();
+		var fechaActual = LocalDate.now();
 		
 		if (fechaInicio==null) {
 			errors.rejectValue("fechaInicio", "Mandatory field", "Please, choose an initial date for your booking");

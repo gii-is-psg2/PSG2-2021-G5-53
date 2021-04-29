@@ -97,7 +97,7 @@ class PetServiceTests {
 
 	@Test
 	@Transactional
-	public void shouldInsertPetIntoDatabaseAndGenerateId() {
+	 void shouldInsertPetIntoDatabaseAndGenerateId() {
 		Owner owner6 = this.ownerService.findOwnerById(6);
 		int found = owner6.getPets().size();
 
@@ -124,7 +124,7 @@ class PetServiceTests {
 	
 	@Test
 	@Transactional
-	public void shouldThrowExceptionInsertingPetsWithTheSameName() {
+	 void shouldThrowExceptionInsertingPetsWithTheSameName() {
 		Owner owner6 = this.ownerService.findOwnerById(6);
 		Pet pet = new Pet();
 		pet.setName("wario");
@@ -151,7 +151,7 @@ class PetServiceTests {
 
 	@Test
 	@Transactional
-	public void shouldUpdatePetName() throws Exception {
+	 void shouldUpdatePetName() throws Exception {
 		Pet pet7 = this.petService.findPetById(7);
 		String oldName = pet7.getName();
 
@@ -165,7 +165,7 @@ class PetServiceTests {
 	
 	@Test
 	@Transactional
-	public void shouldThrowExceptionUpdatingPetsWithTheSameName() {
+	 void shouldThrowExceptionUpdatingPetsWithTheSameName() {
 		Owner owner6 = this.ownerService.findOwnerById(6);
 		Pet pet = new Pet();
 		pet.setName("wario");
@@ -196,7 +196,7 @@ class PetServiceTests {
 
 	@Test
 	@Transactional
-	public void shouldAddNewVisitForPet() {
+	 void shouldAddNewVisitForPet() {
 		Pet pet7 = this.petService.findPetById(7);
 		int found = pet7.getVisits().size();
 		Visit visit = new Visit();
@@ -217,7 +217,7 @@ class PetServiceTests {
 	@Test
 	void shouldFindVisitsByPetId() throws Exception {
 		Collection<Visit> visits = this.petService.findVisitsByPetId(7);
-		assertThat(visits.size()).isEqualTo(2);
+		assertThat(visits).hasSize(2);
 		Visit[] visitArr = visits.toArray(new Visit[visits.size()]);
 		assertThat(visitArr[0].getPet()).isNotNull();
 		assertThat(visitArr[0].getDate()).isNotNull();

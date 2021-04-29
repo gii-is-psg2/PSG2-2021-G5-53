@@ -39,12 +39,12 @@ public class ReservaService {
 	//de la primera reserva que produce solapamiento
 	public Integer reservasSolapadas(Reserva r1, List<Reserva> reservas) {
 		int indice = -1;
-		int i = 0;
+		var i = 0;
 		if(reservas.isEmpty()) {
 			return indice;
 		} else {
 		while(i<reservas.size() && indice == -1) {
-			Reserva reservaEscogida = reservas.get(i);
+			var reservaEscogida = reservas.get(i);
 			if((r1.getFechaInicio().isBefore(reservaEscogida.getFechaFin()) ||
 					r1.getFechaInicio().isEqual((reservaEscogida.getFechaFin()))) &&
 					(reservaEscogida.getFechaInicio().isBefore(r1.getFechaFin()) ||

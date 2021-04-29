@@ -60,8 +60,8 @@ public class VisitController {
 	 */
 	@ModelAttribute("visit")
 	public Visit loadPetWithVisit(@PathVariable("petId") int petId) {
-		Pet pet = this.petService.findPetById(petId);
-		Visit visit = new Visit();
+		var pet = this.petService.findPetById(petId);
+		var visit = new Visit();
 		pet.addVisit(visit);
 		return visit;
 	}
@@ -93,7 +93,7 @@ public class VisitController {
 	@GetMapping("/owners/{ownerId}/pets/{petId}/visits/{visitId}/delete")
 	public String deleteVisit(@PathVariable ("ownerId") int ownerId,@PathVariable ("petId") int petId,@PathVariable ("visitId") int visitId, ModelMap model) {
 		System.out.println("Illo, movida");
-		Visit v = petService.findVisitById(visitId);
+		var v = petService.findVisitById(visitId);
 		this.petService.removeVisit(v);
 		//this.petService.removeVisit(visitId);
 		System.out.println("cabesa, la urtima");
