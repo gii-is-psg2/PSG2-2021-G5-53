@@ -52,10 +52,14 @@ public class ReservaControlleres {
 	
 	
 	private Owner getOwnerActivo() {
+	
 		UserDetails userDetails = null;
+		try {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
           userDetails = (UserDetails) principal;
+        }}catch(Exception e){
+        	  e.printStackTrace();
         }
         String userName = userDetails.getUsername();
         return  this.ownerService.findByUsername(userName);
