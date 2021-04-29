@@ -50,7 +50,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class AdoptionController {
 
 	
-
+	private static final String WELCOME = "welcome";
 	private final AdoptionService adoptionService;
 	private final OwnerService ownerService;
 	private final PetService petService;
@@ -94,7 +94,7 @@ public class AdoptionController {
     @GetMapping("/adoption/save/{ownerId}/{petId}")
 	public String saveAdoption(@PathVariable ("ownerId") int ownerId,@PathVariable ("petId") int petId, ModelMap model) {
     	adoptionService.saveAdoption(ownerId, petId);
-		return "welcome";
+		return WELCOME;
 	}
     
   
@@ -115,7 +115,7 @@ public class AdoptionController {
     public String processCreationForm(Adoption adoption,BindingResult result,ModelMap model,@PathVariable ("petId") int petId) {
     	if (result.hasErrors()) {
     		
-    		//model.put("errores",result.getAllErrors());
+    	
             model.put("adoption",adoption);
             return "adoption/adoptionApplication";
         }else {
@@ -125,7 +125,7 @@ public class AdoptionController {
         	 adoption.setPet(pet);
         	 adoption.setPetOwner(pet.getOwner());
         	 this.adoptionService.saveAdoption(adoption);
-             return "welcome";
+             return WELCOME;
         }
     
     }
@@ -206,7 +206,7 @@ public class AdoptionController {
 		this.ownerService.saveOwner(oldOwner);
 		this.ownerService.saveOwner(newOwner);
 		
-		return "welcome";
+		return WELCOME;
 	}
   	    
 }

@@ -46,10 +46,7 @@ public class VetService {
 	}	
 	
 
-//	@Transactional(readOnly = true)
-//	public Collection<Specialty> findSpecialtyTypes(){
-//		return vetRepository.findSpecialtyTypes();
-//	}
+
 	
 	
 	public Vet findById(int id) throws DataAccessException{

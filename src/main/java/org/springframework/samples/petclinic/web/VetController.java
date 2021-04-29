@@ -40,7 +40,7 @@ import javax.validation.Valid;
 public class VetController {
 	
 	
-
+	private static final String REDIRECT_VETS = "redirect:/vets";
 	private final VetService vetService;
 	private static final String VIEWS_VET_CREATE_FORM = "vets/createForm";
 	private static final String VIEWS_VET_UPDATE_FORM = "vets/updateForm";
@@ -82,7 +82,7 @@ public class VetController {
 		}
 		else {
 			this.vetService.save(vet);
-			return "redirect:/vets";
+			return REDIRECT_VETS;
 		}
 	}
 
@@ -115,22 +115,17 @@ public class VetController {
 			vet.setId(vetId);
 			this.vetService.save(vet);
 		
-			return "redirect:/vets";
+			return REDIRECT_VETS;
 		}
 	}
 	
 	
-	
-//	@ModelAttribute("types")
-//	public Collection<Specialty> populateVetTypes() {
-//		return this.vetService.findSpecialtyTypes();
-//	}
-	
+
 	
 	@GetMapping("/vets/{vetId}/delete")
 	public String deleteVet(@PathVariable ("vetId") int vetId,ModelMap model) {
 			this.vetService.removeVet(vetId);
-			return "redirect:/vets";
+			return REDIRECT_VETS;
 	}
 
 

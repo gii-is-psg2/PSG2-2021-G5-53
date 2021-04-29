@@ -32,6 +32,7 @@ import org.springframework.samples.petclinic.model.BaseEntity;
  */
 public interface EntityUtils {
 
+	
 	/**
 	 * Look up the entity of the given class with the given id in the given collection.
 	 * @param entities the collection to search

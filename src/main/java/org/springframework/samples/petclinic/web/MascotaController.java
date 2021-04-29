@@ -42,6 +42,7 @@ import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNam
 @RequestMapping("/propietarios/{ownerId}")
 public class MascotaController {
 
+	private static final String REDIRECT_OWNERID = "redirect:/propietarios/{ownerId}";
 	private static final String VIEWS_PETS_CREATE_OR_UPDATE_FORM = "pets/createOrUpdatePetForm_es";
 
 	private final PetService petService;
@@ -62,16 +63,7 @@ public class MascotaController {
 	public Owner findOwner(@PathVariable("ownerId") int ownerId) {
 		return this.ownerService.findOwnerById(ownerId);
 	}
-        
-        /*@ModelAttribute("pet")
-	public Pet findPet(@PathVariable("petId") Integer petId) {
-            Pet result=null;
-		if(petId!=null)
-                    result=this.clinicService.findPetById(petId);
-                else
-                    result=new Pet();
-            return result;
-	}*/
+     
                 
 	@InitBinder("owner")
 	public void initOwnerBinder(WebDataBinder dataBinder) {
@@ -105,7 +97,7 @@ public class MascotaController {
                         result.rejectValue("name", "duplicate", "already exists");
                         return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
                     }
-                    return "redirect:/propietarios/{ownerId}";
+                    return REDIRECT_OWNERID;
 		}
 	}
 
@@ -141,13 +133,13 @@ public class MascotaController {
                         result.rejectValue("name", "duplicate", "already exists");
                         return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
                     }
-			return "redirect:/propietarios/{ownerId}";
+			return REDIRECT_OWNERID;
 		}
 	}
         @GetMapping("/mascotas/{petId}/eliminar")
     	public String deletePet(@PathVariable ("petId") int petId,ModelMap model) {
     			this.petService.removePet(petId);
-    			return "redirect:/propietarios/{ownerId}";
+    			return REDIRECT_OWNERID;
     	}
 
 }

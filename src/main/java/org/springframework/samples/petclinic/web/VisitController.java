@@ -16,6 +16,8 @@
 package org.springframework.samples.petclinic.web;
 
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.validation.Valid;
 
@@ -37,6 +39,8 @@ import org.springframework.web.bind.annotation.*;
  */
 @Controller
 public class VisitController {
+	
+	Logger logger = Logger.getLogger(ReservaController.class.getName());
 
 	private final PetService petService;
 
@@ -92,11 +96,10 @@ public class VisitController {
 	
 	@GetMapping("/owners/{ownerId}/pets/{petId}/visits/{visitId}/delete")
 	public String deleteVisit(@PathVariable ("ownerId") int ownerId,@PathVariable ("petId") int petId,@PathVariable ("visitId") int visitId, ModelMap model) {
-		System.out.println("Illo, movida");
+		logger.log(Level.ALL,"Illo, movida");
 		var v = petService.findVisitById(visitId);
 		this.petService.removeVisit(v);
-		//this.petService.removeVisit(visitId);
-		System.out.println("cabesa, la urtima");
+		logger.log(Level.ALL,"cabesa, la urtima" );
 		return "redirect:/";
 	}
 

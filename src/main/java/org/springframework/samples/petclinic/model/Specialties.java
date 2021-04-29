@@ -9,13 +9,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Specialties {
 
-	private List<Specialty> specialties;
+	private List<Specialty> especialidades;
 
 	@XmlElement
 	public List<Specialty> getSpecialtyList() {
-		if (specialties == null) {
-			specialties = new ArrayList<>();
+		if (especialidades == null) {
+			especialidades = new ArrayList<>();
 		}
-		return specialties;
+		return especialidades;
 	}
 }

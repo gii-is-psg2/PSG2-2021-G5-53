@@ -48,7 +48,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class PetController {
 
 	private static final String VIEWS_PETS_CREATE_OR_UPDATE_FORM = "pets/createOrUpdatePetForm";
-
+	private static final String REDIRECT_OWNERID = "redirect:/owners/{ownerId}";
 	private final PetService petService;
     private final OwnerService ownerService;
     private PetRepository petRepository;
@@ -102,7 +102,7 @@ public class PetController {
                         result.rejectValue("name", "duplicate", "already exists");
                         return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
                     }
-                    return "redirect:/owners/{ownerId}";
+                    return REDIRECT_OWNERID;
 		}
 	}
 
@@ -138,14 +138,14 @@ public class PetController {
                         result.rejectValue("name", "duplicate", "already exists");
                         return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
                     }
-			return "redirect:/owners/{ownerId}";
+			return REDIRECT_OWNERID;
 		}
 	}
 
     @GetMapping("/pets/{petId}/delete")
 	public String deletePet(@PathVariable ("petId") int petId,ModelMap model) {
 			this.petService.removePet(petId);
-			return "redirect:/owners/{ownerId}";
+			return REDIRECT_OWNERID;
 	}
      
 }

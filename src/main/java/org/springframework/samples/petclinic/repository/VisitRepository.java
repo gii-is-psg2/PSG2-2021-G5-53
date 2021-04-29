@@ -40,13 +40,10 @@ public interface VisitRepository extends CrudRepository<Visit, Integer> {
 	 * @param visit the <code>Visit</code> to save
 	 * @see BaseEntity#isNew
 	 */
-	//void save(Visit visit) throws DataAccessException;
+	
 
 	List<Visit> findByPetId(Integer petId);
 	
-//	@Modifying
-//	@Query("DELETE FROM Visit visit WHERE visit.id = ?1")
-//	void remove(@Param("id") Integer Id);
 	
 	Visit findById(int id) throws DataAccessException;
 }

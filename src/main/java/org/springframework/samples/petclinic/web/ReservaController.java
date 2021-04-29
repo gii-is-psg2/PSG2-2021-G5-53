@@ -2,6 +2,8 @@ package org.springframework.samples.petclinic.web;
 
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.validation.Valid;
 
@@ -25,7 +27,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class ReservaController {
-	
+	Logger logger = Logger.getLogger(ReservaController.class.getName());
+	private static final String RESERVA = "reserva";
 	private  ReservaService reservaService;
 	private OwnerService ownerService;
 	private PetService petService;
@@ -62,24 +65,25 @@ public class ReservaController {
 	@GetMapping(value = "/reservas/{petId}/new")
 	public String initCreationForm(Map<String, Object> model, @PathVariable("petId") Integer petId) {
 		var reserva = new Reserva();
-		model.put("reserva", reserva);
+		model.put(RESERVA, reserva);
 		return "reservas/createOrUpdateReservaForm";
 	}
 	
 	@PostMapping(value = "/reservas/{petId}/new")
 	public String processCreationForm(@Valid Reserva reserva, BindingResult result,ModelMap model, @PathVariable("petId") Integer petId) {
 		if (result.hasErrors()) {
-			model.put("reserva",reserva);
+			model.put(RESERVA,reserva);
 			return "reservas/createOrUpdateReservaForm";
 		}
 		else {
 			List<Reserva> reservasByPet = this.reservaService.findReservasByPetId(petId);
 			int solapamiento = this.reservaService.reservasSolapadas(reserva, reservasByPet);
 			if(solapamiento!=-1) {
-				System.out.println("Solapamiento = " + solapamiento);
+				logger.log(Level.ALL,"Solapamiento = " + solapamiento);
+				
 				var reservaEncontrada = this.reservaService.findById(solapamiento);
-				System.out.println("Reserva encontrada =" + reservaEncontrada.getId());
-				model.put("reserva", reservaEncontrada);
+				logger.log(Level.ALL,"Reserva encontrada =" + reservaEncontrada.getId());
+				model.put(RESERVA, reservaEncontrada);
 				model.put("petId", petId);
 				return "reservas/reservasSolapadas";
 			} else {

@@ -41,8 +41,7 @@ public interface VetRepository extends Repository<Vet, Integer>{
 
 	
 	
-//	@Query("SELECT t FROM Specialty t")
-//	List<Specialty> findSpecialtyTypes();
+
 
 
 	/**
