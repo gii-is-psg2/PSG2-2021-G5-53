@@ -23,7 +23,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.service.PetService;
-import org.springframework.samples.petclinic.service.VetService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -60,8 +59,8 @@ public class VisitaController {
 	 */
 	@ModelAttribute("visit")
 	public Visit loadPetWithVisit(@PathVariable("petId") int petId) {
-		Pet pet = this.petService.findPetById(petId);
-		Visit visit = new Visit();
+		var pet = this.petService.findPetById(petId);
+		var visit = new Visit();
 		pet.addVisit(visit);
 		return visit;
 	}

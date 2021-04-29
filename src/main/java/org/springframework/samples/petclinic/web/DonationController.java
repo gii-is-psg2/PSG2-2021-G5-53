@@ -40,7 +40,7 @@ public class DonationController {
 
     @GetMapping(value = "/donations/new")
     public String initCreationForm(Cause cause, ModelMap model) {
-        Donation donation = new Donation();
+        var donation = new Donation();
         cause.addDonation(donation);
     	donation.setDate(LocalDate.now());
         model.put("donation", donation);
@@ -50,7 +50,7 @@ public class DonationController {
     @PostMapping(value = "/donations/new")
     public String processCreationForm(@ModelAttribute Cause cause, @Valid Donation donation, BindingResult result, ModelMap model) {
     	donation.setCause(cause);
-    	if (cause.getIsClosed()){
+    	if (Boolean.TRUE.equals(cause.getIsClosed())){
             result.rejectValue("client", "closed");
             result.rejectValue("amount", "closed");
     	} 

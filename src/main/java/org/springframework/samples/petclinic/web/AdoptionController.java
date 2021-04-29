@@ -18,8 +18,6 @@ package org.springframework.samples.petclinic.web;
 import java.util.List;
 import java.util.Map;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Adoption;
@@ -52,20 +50,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class AdoptionController {
 
 	
-
+	private static final String WELCOME = "welcome";
 	private final AdoptionService adoptionService;
 	private final OwnerService ownerService;
 	private final PetService petService;
-	private final UserService userService;
-	private final AuthoritiesService authoritiesService;
+
 	
 	@Autowired
 	public AdoptionController(AdoptionService adoptionService,OwnerService ownerService, PetService petService, UserService userService, AuthoritiesService authoritiesService) {
 		this.adoptionService = adoptionService;
 		this.ownerService = ownerService;
 		this.petService = petService;
-		this.userService = userService;
-		this.authoritiesService = authoritiesService;
+
 		
 	}
 
@@ -79,7 +75,7 @@ public class AdoptionController {
 	public String petsForAdoption(ModelMap model) {
 		
 		Integer ownerId = getOwnerActivo().getId();
-		List<Pet> adoptionList = (List<Pet>) petService.findPetsForAdoption(ownerId);
+		List<Pet> adoptionList = petService.findPetsForAdoption(ownerId);
 		
 			if(adoptionList.iterator().hasNext()) {
 				model.put("adoptionList", adoptionList);
@@ -96,7 +92,7 @@ public class AdoptionController {
     @GetMapping("/adoption/save/{ownerId}/{petId}")
 	public String saveAdoption(@PathVariable ("ownerId") int ownerId,@PathVariable ("petId") int petId, ModelMap model) {
     	adoptionService.saveAdoption(ownerId, petId);
-		return "welcome";
+		return WELCOME;
 	}
     
   
@@ -108,7 +104,7 @@ public class AdoptionController {
     
     @GetMapping(value = "/adoption/application/{petId}/new")
     public String initCreationForm(Map<String, Object> model, @PathVariable ("petId") int petId) {
-        Adoption adoption = new Adoption();
+        var adoption = new Adoption();
         model.put("adoption", adoption);
         return "adoption/adoptionApplication";
     }
@@ -117,34 +113,37 @@ public class AdoptionController {
     public String processCreationForm(Adoption adoption,BindingResult result,ModelMap model,@PathVariable ("petId") int petId) {
     	if (result.hasErrors()) {
     		
-    		//model.put("errores",result.getAllErrors());
+    	
             model.put("adoption",adoption);
             return "adoption/adoptionApplication";
         }else {
-        	Pet pet = this.petService.findPetById(petId);
+        	var pet = this.petService.findPetById(petId);
         	 int ownerId = getOwnerActivo().getId();
         	 adoption.setApplicationOwner(this.ownerService.findOwnerById(ownerId));
         	 adoption.setPet(pet);
         	 adoption.setPetOwner(pet.getOwner());
         	 this.adoptionService.saveAdoption(adoption);
-             return "welcome";
+             return WELCOME;
         }
     
     }
 
     private Owner getOwnerActivo() {
-
     	UserDetails userDetails = null;
+    	try {
+    	
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 	    if (principal instanceof UserDetails) {
 	     userDetails = (UserDetails) principal;
 	    }
-	    	
+    	}catch(Exception e){
+    		  e.printStackTrace();
+    	}
 	    String userName = userDetails.getUsername();
-	    Owner owner = this.ownerService.findByUsername(userName);
+	    
 	
-	    return owner;
+	    return this.ownerService.findByUsername(userName);
 	 }
     
     
@@ -152,7 +151,7 @@ public class AdoptionController {
     //Show All
   	@GetMapping("/adoption/requests")
   	public String showAllRequest(ModelMap model) {
-  		Owner owner = getOwnerActivo();
+  		var owner = getOwnerActivo();
   		Integer ownerId = owner.getId();
   		
   		List<Adoption> requestAdoption = this.adoptionService.findAllRequestsByOwnerId(ownerId); 
@@ -172,8 +171,8 @@ public class AdoptionController {
   //Nueva solicitud del owner
   	@GetMapping("/adoption/request/{ownerId}/{petId}/new")
   	public String newRequest(ModelMap model, @PathVariable("ownerId") int ownerId, @PathVariable("petId") int petId) {
-  		Owner owner = ownerService.findOwnerById(ownerId);
-  		Pet pet = petService.findPetById(petId);
+  		var owner = ownerService.findOwnerById(ownerId);
+  		var pet = petService.findPetById(petId);
   		model.put("owner", owner);
   		model.put("pet", pet);
   		return "request/createOrUpdateRequestForm";
@@ -182,7 +181,7 @@ public class AdoptionController {
   	@PostMapping("/adoption/request/{ownerId}/{petId}/new")
   	public String processCreationForm( @PathVariable("ownerId") int ownerId, @PathVariable("petId") int petId, ModelMap model) throws DataAccessException, DuplicatedPetNameException {
   		
-  		Pet pet = petService.findPetById(petId);
+  		var pet = petService.findPetById(petId);
   		pet.setOnAdoption(true);
   		
   		this.petService.savePet(pet);
@@ -195,10 +194,10 @@ public class AdoptionController {
 	@GetMapping(value="/adoption/request/new/{petId}/{oldOwnerId}/{newOwnerId}")
 	public String newOwner(@PathVariable("newOwnerId") int newOwnerId, @PathVariable("oldOwnerId") int oldOwnerId, @PathVariable("petId") int petId) throws DataAccessException, DuplicatedPetNameException {
 
-		Pet pet = this.petService.findPetById(petId);
+		var pet = this.petService.findPetById(petId);
 		
-		Owner oldOwner = this.ownerService.findOwnerById(oldOwnerId);
-		Owner newOwner = this.ownerService.findOwnerById(newOwnerId);
+		var oldOwner = this.ownerService.findOwnerById(oldOwnerId);
+		var newOwner = this.ownerService.findOwnerById(newOwnerId);
 		
 		pet.setOnAdoption(false);
 		oldOwner.removePet(pet);
@@ -208,7 +207,7 @@ public class AdoptionController {
 		this.ownerService.saveOwner(oldOwner);
 		this.ownerService.saveOwner(newOwner);
 		
-		return "welcome";
+		return WELCOME;
 	}
   	    
 }

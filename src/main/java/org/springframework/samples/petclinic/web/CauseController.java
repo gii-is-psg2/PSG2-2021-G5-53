@@ -39,7 +39,7 @@ public class CauseController {
         List<Double> donations=new ArrayList<>(this.causeService.findDonationsByCauses(causes));
 
         Map<Cause,Double> res=new HashMap<>();
-        for(int i=0;i<causes.size();i++) {
+        for(var i=0;i<causes.size();i++) {
         	res.put(causes.get(i), donations.get(i));
         }
         model.put("map", res);
@@ -48,7 +48,7 @@ public class CauseController {
 
     @GetMapping(value = "/causes/new")
     public String initCreationForm(Map<String, Object> model) {
-        Cause cause = new Cause();
+        var cause = new Cause();
         cause.setIsClosed(false);
         model.put("cause", cause);
         return VIEWS_CAUSE_CREATE_OR_UPDATE_FORM;
@@ -69,7 +69,7 @@ public class CauseController {
     	Collection<Donation> donations;
     	donations = this.causeService.findDonations(causeId);
         model.put("donations", donations);
-        ModelAndView mav = new ModelAndView("causes/causeDetails");
+        var mav = new ModelAndView("causes/causeDetails");
         mav.addObject("cause",this.causeService.findCauseById(causeId));
         return mav;
     }

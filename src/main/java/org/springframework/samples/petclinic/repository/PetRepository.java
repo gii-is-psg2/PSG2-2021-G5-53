@@ -15,7 +15,7 @@
  */
 package org.springframework.samples.petclinic.repository;
 
-import java.util.HashMap;
+
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
@@ -59,7 +59,7 @@ public interface PetRepository extends Repository<Pet, Integer> {
 	
 	@Modifying
 	@Query("DELETE FROM Pet pet WHERE pet.id = :id")
-	void remove(@Param("id") Integer Id);
+	void remove(@Param("id") Integer id);
 	
 	@Query(nativeQuery = true, value = "SELECT * FROM PETS WHERE ON_ADOPTION = TRUE AND OWNER_ID != ?1")
 	List<Pet> findPetsForAdoption(Integer ownerId);

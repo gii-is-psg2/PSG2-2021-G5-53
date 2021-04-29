@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -27,6 +26,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+	private static final String ADMIN = "admin";
+	private static final String OWNER = "owner";
 	@Autowired
 	DataSource dataSource;
 	
@@ -36,14 +37,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/resources/**","/webjars/**","/h2-console/**").permitAll()
 				.antMatchers(HttpMethod.GET, "/","/oups").permitAll()
 				.antMatchers("/users/new").permitAll()
-				.antMatchers("/admin/**").hasAnyAuthority("admin")
-				.antMatchers("/owners/**").hasAnyAuthority("owner","admin")
-				.antMatchers("/reservas/**").hasAnyAuthority("owner")
-				.antMatchers("/adoption/**").hasAnyAuthority("owner")
-				.antMatchers("/request/**").hasAnyAuthority("owner")
-				.antMatchers("/habitaciones/**").hasAnyAuthority("owner")
+				.antMatchers("/admin/**").hasAnyAuthority(ADMIN)
+				.antMatchers("/owners/**").hasAnyAuthority(OWNER,ADMIN)
+				.antMatchers("/reservas/**").hasAnyAuthority(OWNER)
+				.antMatchers("/adoption/**").hasAnyAuthority(OWNER)
+				.antMatchers("/request/**").hasAnyAuthority(OWNER)
+				.antMatchers("/habitaciones/**").hasAnyAuthority(OWNER)
 				.antMatchers("/vets/**").authenticated()
-				.antMatchers("/propietarios/**").hasAnyAuthority("owner","admin")				
+				.antMatchers("/propietarios/**").hasAnyAuthority(OWNER,ADMIN)				
 				.antMatchers("/veterinarios/**").authenticated()
 				.antMatchers("/**.xml").authenticated()
 				.antMatchers("/bienvenido").permitAll()
@@ -81,8 +82,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {	    
-		PasswordEncoder encoder =  NoOpPasswordEncoder.getInstance();
-	    return encoder;
+	    return  NoOpPasswordEncoder.getInstance();
 	}
 	
 }

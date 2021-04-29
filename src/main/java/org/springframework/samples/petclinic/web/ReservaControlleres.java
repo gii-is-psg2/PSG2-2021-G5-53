@@ -25,19 +25,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class ReservaController_es {
+public class ReservaControlleres {
 	
 	private  ReservaService reservaService;
 	
 	private OwnerService ownerService;
-	private PetService petService;
+
 	
 	@Autowired
-	public ReservaController_es(ReservaService reservaService, OwnerService ownerService,
+	public ReservaControlleres(ReservaService reservaService, OwnerService ownerService,
 			PetService petService) {
 		this.reservaService = reservaService;
 		this.ownerService = ownerService;
-		this.petService = petService;
+		
 	}
 	
 	@InitBinder
@@ -52,19 +52,22 @@ public class ReservaController_es {
 	
 	
 	private Owner getOwnerActivo() {
+	
 		UserDetails userDetails = null;
+		try {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
           userDetails = (UserDetails) principal;
+        }}catch(Exception e){
+        	  e.printStackTrace();
         }
         String userName = userDetails.getUsername();
-        Owner owner = this.ownerService.findByUsername(userName);
-        return  owner;
+        return  this.ownerService.findByUsername(userName);
 	}
 	
 	@GetMapping(value = "/reservas/nueva")
 	public String initCreationForm(Map<String, Object> model) {
-		Reserva reserva = new Reserva();
+		var reserva = new Reserva();
 		model.put("reserva", reserva);
 		return "reservas/createOrUpdateReservaForm_es";
 	}
@@ -76,10 +79,10 @@ public class ReservaController_es {
 			return "reservas/createOrUpdateReservaForm_es";
 		}
 		else {
-			Owner owner = getOwnerActivo();
+			var owner = getOwnerActivo();
 			reserva.setOwner(owner);
 			this.reservaService.saveReserva(reserva);
-			return "redirect:/habitaciones/" + String.valueOf(reserva.getId()) + "/todasLasHabitaciones";
+			return "redirect:/habitaciones/" + reserva.getId() + "/todasLasHabitaciones";
 		}
 	}
 	
@@ -88,8 +91,8 @@ public class ReservaController_es {
 	@GetMapping(value = "/reservas/{reservaId}/todasLasHabitacionesDisponibles/{habitacionId}/elegirMascota")
 	public String elegirPet(@PathVariable("reservaId") int reservaId, @PathVariable("habitacionId") int habitacionId,
 			ModelMap model) {
-		Reserva reserva = this.reservaService.findById(reservaId);
-		Owner owner = reserva.getOwner();
+		var reserva = this.reservaService.findById(reservaId);
+		var owner = reserva.getOwner();
 		List<Pet> pets = owner.getPets();
 		model.put("reservaId", reservaId);
 		model.put("habitacionId", habitacionId);
