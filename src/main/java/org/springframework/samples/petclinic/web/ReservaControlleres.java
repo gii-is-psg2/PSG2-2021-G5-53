@@ -30,14 +30,14 @@ public class ReservaControlleres {
 	private  ReservaService reservaService;
 	
 	private OwnerService ownerService;
-	private PetService petService;
+
 	
 	@Autowired
 	public ReservaControlleres(ReservaService reservaService, OwnerService ownerService,
 			PetService petService) {
 		this.reservaService = reservaService;
 		this.ownerService = ownerService;
-		this.petService = petService;
+		
 	}
 	
 	@InitBinder

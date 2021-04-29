@@ -54,16 +54,14 @@ public class AdoptionController {
 	private final AdoptionService adoptionService;
 	private final OwnerService ownerService;
 	private final PetService petService;
-	private final UserService userService;
-	private final AuthoritiesService authoritiesService;
+
 	
 	@Autowired
 	public AdoptionController(AdoptionService adoptionService,OwnerService ownerService, PetService petService, UserService userService, AuthoritiesService authoritiesService) {
 		this.adoptionService = adoptionService;
 		this.ownerService = ownerService;
 		this.petService = petService;
-		this.userService = userService;
-		this.authoritiesService = authoritiesService;
+
 		
 	}
 
