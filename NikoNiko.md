@@ -48,11 +48,11 @@ In the retrospective meeting, the team has a discussion about those results.
 | 24/04/2021    |       -       |        -      |       -        |       -        |       -        |       -        |
 | 25/04/2021    |:neutral_face: |        -      |  :worried:     | :neutral_face: |    :smiley:    |:neutral_face:  |
 | 26/04/2021    |:neutral_face: |        -      |:fearful:       |    :smiley:    |       -        |:neutral_face:  |
-| 27/04/2021    |:smiley:       |               |                |                |       -        |   :smiley:     |
-| 28/04/2021    |:smiley:       |               |                |                |       -        |    :smiley:    |
-| 29/04/2021    |:smiley:       |               |                |                |                |     :smiley:   |
-| 30/04/2021    |       -       |               |                |                |                |        -       |
-| 01/05/2021    |       -       |               |                |                |                |        -       |
-| 02/05/2021    |               |               |                |                |                |        -       |
-| 03/05/2021    |               |               |                |                |                |        -       |
+| 27/04/2021    |:smiley:       |               |                |       -        |       -        |   :smiley:     |
+| 28/04/2021    |:smiley:       |               |                |       -        |       -        |    :smiley:    |
+| 29/04/2021    |:smiley:       |               |                |    :smiley:    |                |     :smiley:   |
+| 30/04/2021    |       -       |               |                |       -        |                |        -       |
+| 01/05/2021    |       -       |               |                |       -        |                |        -       |
+| 02/05/2021    |               |               |                |       -        |                |        -       |
+| 03/05/2021    |               |               |                |       -        |                |        -       |
 
