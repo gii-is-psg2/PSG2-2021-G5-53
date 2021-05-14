@@ -32,6 +32,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import lombok.var;
+
 
 /**
  * Mostly used as a facade for all Petclinic controllers Also a placeholder
