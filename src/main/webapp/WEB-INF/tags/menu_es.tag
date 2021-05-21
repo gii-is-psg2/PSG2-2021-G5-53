@@ -22,12 +22,6 @@
 		<div class="navbar-collapse collapse" id="main-navbar">
 			<ul class="nav navbar-nav">
 
-				<petclinic:menuItem active="${name eq 'home'}" url="/bienvenido"
-					title="home page">
-					<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-					<span>Principal</span>
-				</petclinic:menuItem>
-
 				<petclinic:menuItem active="${name eq 'owners'}" url="/propietarios/encontrar"
 					title="find owners">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -45,6 +39,21 @@
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
 					<span>Reservar</span>
 				</petclinic:menuItem>
+				
+                <petclinic:menuItem active="${name eq 'adoption'}" url="/adoption" title="Enter here if you want to adopt a pet">
+                    <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+                    <span>Adopcion</span>
+                </petclinic:menuItem>
+       
+                <petclinic:menuItem active="${name eq 'causes'}" url="/causes" title="causes">
+                    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                    <span>Causas</span>
+                </petclinic:menuItem>
+                
+                <petclinic:menuItem active="${name eq 'health'}" url="/health" title="health">
+                    <span class="glyphicon glyphicon-signal" aria-hidden="true"></span>
+                    <span>Servidor</span>
+                </petclinic:menuItem>
 
 			</ul>
 
