@@ -31,7 +31,7 @@
 				<petclinic:menuItem active="${name eq 'owners'}" url="/propietarios/encontrar"
 					title="find owners">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-					<span>Encontrar propietarios</span>
+					<span>Propietarios</span>
 				</petclinic:menuItem>
 
 				<petclinic:menuItem active="${name eq 'vets'}" url="/veterinarios"
@@ -43,14 +43,9 @@
 				<petclinic:menuItem active="${name eq 'reservas'}" url="/reservas/nueva"
 					title="petHotel">
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-					<span>Reservar una habitación</span>
+					<span>Habitación</span>
 				</petclinic:menuItem>
 
-				<petclinic:menuItem active="${name eq 'error'}" url="/oups"
-					title="trigger a RuntimeException to see how it is handled">
-					<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
-					<span>Error</span>
-				</petclinic:menuItem>
 
 			</ul>
 
