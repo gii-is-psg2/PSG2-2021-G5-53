@@ -25,6 +25,7 @@
         <div class="form-group has-feedback">
             <petclinic:inputField label="Start date" name="fechaInicio"/>
             <petclinic:inputField label="End date" name="fechaFin"/>
+            <petclinic:inputField label="Description" name="descripcion"/>
          
         </div>
         <div class="form-group">

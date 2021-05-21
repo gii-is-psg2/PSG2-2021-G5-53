@@ -18,6 +18,7 @@
         <tr>
             <th>Start Date</th>
            <th>End Date</th>
+           <th>Description</th>
         </tr>
         </thead>
         <tbody>
@@ -28,6 +29,10 @@
                 <td>
                 <c:out value="${reserva.fechaFin}"/>
              	</td>
+             	<td>
+                <c:out value="${reserva.descripcion}"/>
+             	</td>
+             	
         
         </tbody> 
     </table>
