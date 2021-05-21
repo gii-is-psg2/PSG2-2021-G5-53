@@ -31,7 +31,7 @@
 				<petclinic:menuItem active="${name eq 'owners'}" url="/propietarios/encontrar"
 					title="find owners">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-					<span>Encontrar propietarios</span>
+					<span>Propietarios</span>
 				</petclinic:menuItem>
 
 				<petclinic:menuItem active="${name eq 'vets'}" url="/veterinarios"
@@ -43,7 +43,7 @@
 				<petclinic:menuItem active="${name eq 'reservas'}" url="/reservas/nueva"
 					title="petHotel">
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-					<span>Reservar una habitación</span>
+					<span>HabitaciÃ³n</span>
 				</petclinic:menuItem>
 
 			</ul>
@@ -58,7 +58,7 @@
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown"> <span class="glyphicon glyphicon-user"></span> 
+						data-toggle="dropdown"> <span class="glyphicon glyphicon-user"></span>Â 
 							<strong><sec:authentication property="name" /></strong> <span
 							class="glyphicon glyphicon-chevron-down"></span>
 					</a>
