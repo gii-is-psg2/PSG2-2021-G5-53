@@ -22,6 +22,7 @@ public class ReservaValidator implements Validator{
 		var reserva = (Reserva) obj;
 		LocalDate fechaInicio = reserva.getFechaInicio();
 		LocalDate fechaFin = reserva.getFechaFin();
+		String descripcion = reserva.getDescripcion();
 		var fechaActual = LocalDate.now();
 		
 		if (fechaInicio==null) {
@@ -32,6 +33,14 @@ public class ReservaValidator implements Validator{
 					"Initial date can't be before today!");
 			
 	}
+		
+		if(descripcion==null) {
+			errors.rejectValue("descripcion", "Mandatory field", "Please, write a description");
+		} else if(descripcion.length()<10 || descripcion.length()>1000 || descripcion.equals("")) {
+			errors.rejectValue("descripcion", "Mandatory field", "Please, write a description between"
+					+ "10 and 1000 characters. ");
+		}
+			
 		
 		if (fechaFin==null) {
 			errors.rejectValue("fechaFin", "Mandatory field", "Please, choose an end date for your booking");
