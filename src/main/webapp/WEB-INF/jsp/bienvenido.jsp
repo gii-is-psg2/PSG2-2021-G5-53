@@ -15,7 +15,7 @@
     <a href="${fn:escapeXml(bienvenido)}" class="btn btn-default">Inglés</a>
     <div class="row">
         <div class="col-md-12">
-            <spring:url value="/resources/images/lion-png.png" htmlEscape="true" var="petsImage"/>
+            <spring:url value="/resources/images/fotogato.jpeg" htmlEscape="true" var="petsImage"/>
             <img class="img-responsive" src="${petsImage}" width="200" height="200"/>
         </div>
     </div>
