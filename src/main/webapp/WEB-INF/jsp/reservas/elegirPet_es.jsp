@@ -1,3 +1,4 @@
+
 <%@ page session="false" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -7,33 +8,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 
-<petclinic:layout_es pageName="choosePet">
+<petclinic:layout pageName="choosePet">
 
-<h2> ¿Que habitación quieres reservar para tu mascota?</h2>
+<h2> ¿Para qué mascota quieres reservar una habitación?</h2>
     <table id="choosePetTable" class="table table-striped">
         <thead>
         <tr>
-            <th>Nombre mascota</th>
-           <th>Habitacion reservada</th>
+            <th>Nombre</th>
+           <th>Reservar habitación</th>
         </tr>
         </thead>
         <tbody>
         <c:forEach items="${pets}" var="pet">
+        	<c:if test="${!pet.onAdoption}">
             <tr>
                 <td>
                     <c:out value="${pet.name}"/>
                 </td>
                 <td>
-             		<spring:url value="/reservas/{reservaId}/todasLasHabitacionesDisponibles/{habitacionId}/{petId}" var="choosePetUrl">
-	                        <spring:param name="reservaId" value="${reservaId}"/>
-	                        <spring:param name="habitacionId" value="${habitacionId}"/>
+             		<spring:url value="/reservas/{petId}/nueva" var="choosePetUrl">
 	                        <spring:param name="petId" value="${pet.id}"/>
 	                </spring:url>
-   					<a href="${fn:escapeXml(choosePetUrl)}" class="btn btn-default">Reservar una habitación para esta mascota!</a>
+   					<a href="${fn:escapeXml(choosePetUrl)}" class="btn btn-default">¡Reservar!</a>
              	</td>
+             	</c:if>
         </c:forEach>
         
         </tbody>
     </table>
-   
-</petclinic:layout_es>
+</petclinic:layout>

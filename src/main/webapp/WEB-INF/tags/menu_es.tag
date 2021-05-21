@@ -40,10 +40,10 @@
 					<span>Veterinarios</span>
 				</petclinic:menuItem>
 				
-				<petclinic:menuItem active="${name eq 'reservas'}" url="/reservas/nueva"
+				<petclinic:menuItem active="${name eq 'reservas'}" url="/reservas/seleccionarPet"
 					title="petHotel">
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-					<span>Habitación</span>
+					<span>Reservar</span>
 				</petclinic:menuItem>
 
 			</ul>
@@ -58,7 +58,7 @@
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown"> <span class="glyphicon glyphicon-user"></span> 
+						data-toggle="dropdown"> <span class="glyphicon glyphicon-user"></span>
 							<strong><sec:authentication property="name" /></strong> <span
 							class="glyphicon glyphicon-chevron-down"></span>
 					</a>
