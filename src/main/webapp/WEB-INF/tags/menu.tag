@@ -27,11 +27,17 @@
                     <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
                     <span>Vets</span>
                 </petclinic:menuItem>
+                
+                 <sec:authorize
+                    access = "hasAnyAuthority('owner')">
 
                 <petclinic:menuItem active="${name eq 'reservas'}" url="/reservas/choosePet" title="petHotel">
                     <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
                     <span>Book</span>
-                </petclinic:menuItem>
+                    
+                 </petclinic:menuItem>
+                 
+                 </sec:authorize>
 
                 <petclinic:menuItem active="${name eq 'adoption'}" url="/adoption" title="Enter here if you want to adopt a pet">
                     <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
