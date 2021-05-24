@@ -70,6 +70,7 @@ public class ReservaController {
 	@GetMapping(value = "/reservas/{petId}/new")
 	public String initCreationForm(Map<String, Object> model, @PathVariable("petId") Integer petId) {
 		var reserva = new Reserva();
+		System.out.println("El id de la reserva es " + reserva.getId());
 		model.put(RESERVA, reserva);
 		return "reservas/createOrUpdateReservaForm";
 	}
@@ -81,6 +82,7 @@ public class ReservaController {
 			return "reservas/createOrUpdateReservaForm";
 		}
 		else {
+			System.out.println("El id de la reserva es " + reserva.getId());
 			List<Reserva> reservasByPet = this.reservaService.findReservasByPetId(petId);
 			int solapamiento = this.reservaService.reservasSolapadas(reserva, reservasByPet);
 			if(solapamiento!=-1) {
@@ -96,7 +98,9 @@ public class ReservaController {
 			var owner = getOwnerActivo();
 			reserva.setOwner(owner);
 			reserva.setPet(pet);
+			System.out.println("El id de la reserva antes de guardar es " + reserva.getId());
 			this.reservaService.saveReserva(reserva);
+			System.out.println("El id de la reserva después de guardar es " + reserva.getId());
 			return "welcome";
 		}
 		}

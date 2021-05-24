@@ -24,11 +24,12 @@
         <div class="form-group has-feedback">
             <petclinic:inputField label="Fecha inicio" name="fechaInicio"/>
             <petclinic:inputField label="Fecha fin" name="fechaFin"/>
+            <petclinic:inputField label="Descripcion" name="descripcion"/>
          
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                        <button class="btn btn-default" type="submit">Encontrar habitación</button>
+                        <button class="btn btn-default" type="submit">Reservar</button>
             </div>
         </div>
     </form:form>

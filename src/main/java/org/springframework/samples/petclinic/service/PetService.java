@@ -71,12 +71,12 @@ public class PetService {
 		return petRepository.findById(id);
 	}
 
-	@Transactional(rollbackFor = DuplicatedPetNameException.class)
-	public void savePet(Pet pet) throws DataAccessException, DuplicatedPetNameException {
-			var otherPet=pet.getOwner().getPetwithIdDifferent(pet.getName(), pet.getId());
-            if (StringUtils.hasLength(pet.getName()) &&  (otherPet!= null && !otherPet.getId().equals(pet.getId()))) {            	
-            	throw new DuplicatedPetNameException();
-            }else
+	@Transactional
+	public void savePet(Pet pet) {
+//			Pet otherPet=pet.getOwner().getPetwithIdDifferent(pet.getName(), pet.getId());
+//            if (StringUtils.hasLength(pet.getName()) &&  (otherPet!= null && !otherPet.getId().equals(pet.getId()))) {            	
+//            	throw new DuplicatedPetNameException();
+//            }else
                 petRepository.save(pet);                
 	}
 
