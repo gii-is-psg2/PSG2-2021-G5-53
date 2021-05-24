@@ -22,16 +22,10 @@
 		<div class="navbar-collapse collapse" id="main-navbar">
 			<ul class="nav navbar-nav">
 
-				<petclinic:menuItem active="${name eq 'home'}" url="/bienvenido"
-					title="home page">
-					<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-					<span>Principal</span>
-				</petclinic:menuItem>
-
 				<petclinic:menuItem active="${name eq 'owners'}" url="/propietarios/encontrar"
 					title="find owners">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-					<span>Encontrar propietarios</span>
+					<span>Propietarios</span>
 				</petclinic:menuItem>
 
 				<petclinic:menuItem active="${name eq 'vets'}" url="/veterinarios"
@@ -40,17 +34,26 @@
 					<span>Veterinarios</span>
 				</petclinic:menuItem>
 				
-				<petclinic:menuItem active="${name eq 'reservas'}" url="/reservas/nueva"
+				<petclinic:menuItem active="${name eq 'reservas'}" url="/reservas/seleccionarPet"
 					title="petHotel">
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-					<span>Reservar una habitación</span>
+					<span>Reservar</span>
 				</petclinic:menuItem>
-
-				<petclinic:menuItem active="${name eq 'error'}" url="/oups"
-					title="trigger a RuntimeException to see how it is handled">
-					<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
-					<span>Error</span>
-				</petclinic:menuItem>
+				
+                <petclinic:menuItem active="${name eq 'adoption'}" url="/adoption" title="Enter here if you want to adopt a pet">
+                    <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+                    <span>Adopcion</span>
+                </petclinic:menuItem>
+       
+                <petclinic:menuItem active="${name eq 'causes'}" url="/causes" title="causes">
+                    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                    <span>Causas</span>
+                </petclinic:menuItem>
+                
+                <petclinic:menuItem active="${name eq 'health'}" url="/health" title="health">
+                    <span class="glyphicon glyphicon-signal" aria-hidden="true"></span>
+                    <span>Servidor</span>
+                </petclinic:menuItem>
 
 			</ul>
 
@@ -64,7 +67,7 @@
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown"> <span class="glyphicon glyphicon-user"></span> 
+						data-toggle="dropdown"> <span class="glyphicon glyphicon-user"></span>
 							<strong><sec:authentication property="name" /></strong> <span
 							class="glyphicon glyphicon-chevron-down"></span>
 					</a>

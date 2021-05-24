@@ -10,15 +10,15 @@
 
     <jsp:body>
     <h2>
-       Sorry for the inconvenience!
+       ¡Lo sentimos!
     </h2>
-   <p>You have an active booking for this pet. Details of your current booking: </p>
+   <p>Ya tienes una reserva activa para esta mascota. </p>
    <table id="choosePetTable" class="table table-striped">
         <thead>
         <tr>
-            <th>Start Date</th>
-           <th>End Date</th>
-           <th>Description</th>
+            <th>Fecha de inicio</th>
+           <th>Fecha de fin</th>
+           <th>Descripcion</th>
         </tr>
         </thead>
         <tbody>
@@ -36,11 +36,11 @@
         
         </tbody> 
     </table>
-    <p> If you want to book a room for this pet, please choose another dates.</p>
-    <spring:url value="/reservas/{petId}/new" var="pethotelform">
+    <p>Si quieres reservar una habitación para esta mascota, por favor seleccione otras fechas.</p>
+    <spring:url value="/reservas/{petId}/nueva" var="pethotelform">
 	                        <spring:param name="petId" value="${petId}"/>
 	                </spring:url>
-   					<a href="${fn:escapeXml(pethotelform)}" class="btn btn-default">Return to Pet Hotel form</a>
+   					<a href="${fn:escapeXml(pethotelform)}" class="btn btn-default">Volver al formulario del hotel para mascotas</a>
     </jsp:body>
    
 </petclinic:layout>

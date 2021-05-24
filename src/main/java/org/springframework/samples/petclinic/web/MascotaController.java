@@ -90,13 +90,8 @@ public class MascotaController {
 			return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
 		}
 		else {
-                    try{
-                    	owner.addPet(pet);
-                    	this.petService.savePet(pet);
-                    }catch(DuplicatedPetNameException ex){
-                        result.rejectValue("name", "duplicate", "already exists");
-                        return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
-                    }
+                    owner.addPet(pet);
+                	this.petService.savePet(pet);
                     return REDIRECT_OWNERID;
 		}
 	}
@@ -127,12 +122,7 @@ public class MascotaController {
 		else {
                         var petToUpdate=this.petService.findPetById(petId);
 			BeanUtils.copyProperties(pet, petToUpdate, "id","owner","visits");                                                                                  
-                    try {                    
-                        this.petService.savePet(petToUpdate);                    
-                    } catch (DuplicatedPetNameException ex) {
-                        result.rejectValue("name", "duplicate", "already exists");
-                        return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
-                    }
+            this.petService.savePet(petToUpdate);  
 			return REDIRECT_OWNERID;
 		}
 	}
