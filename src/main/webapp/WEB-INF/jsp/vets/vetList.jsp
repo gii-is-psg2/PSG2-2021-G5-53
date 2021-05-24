@@ -13,55 +13,51 @@
 
 <petclinic:layout pageName="vets">
     <h2>Veterinarians</h2>
-
+    
     <table id="vetsTable" class="table table-striped">
         <thead>
-        <tr>
-            <th>Name</th>
-
-       <!--   <th>Specialties</th>--> 
-            <th>Actions</th>
-          <th>Delete</th>
-
-        </tr>
+            <tr>
+                <th>Name</th>
+            <sec:authorize access="hasAuthority('admin')">
+                <th>Actions</th>
+                <th>Delete</th>
+            </sec:authorize>
+            </tr>
         </thead>
         <tbody>
-        <c:forEach items="${vets.vetList}" var="vet">
-            <tr>
-                <td>
-                    <c:out value="${vet.firstName} ${vet.lastName}"/>
-                </td>
-               <!--  <td>
-                    <c:forEach var="specialty" items="${vet.specialties}">
-                        <c:out value="${specialty.name} "/>
-                    </c:forEach>
-                    <c:if test="${vet.nrOfSpecialties == 0}">none</c:if>
-
-                </td>--> 
-                
-               <td><a href="/vets/${vet.id}/edit">Update</a> </td>
-
-                </td>
-                <td>
-                    <spring:url value="vets/{vetId}/delete" var="vetUrlRemove">
-                   		<spring:param name="vetId" value="${vet.id}"/>
-                    </spring:url>
-                   		<a href="${fn:escapeXml(vetUrlRemove)}">Delete Vet</a>
-                </td> 
-            </tr>
-        </c:forEach>
+            <c:forEach items="${vets.vetList}" var="vet">
+                <tr>
+                    <td>
+                        <c:out value="${vet.firstName} ${vet.lastName}" />
+                    </td>
+    
+                <sec:authorize access="hasAuthority('admin')">
+                    <td>
+                        <a href="/vets/${vet.id}/edit">Update</a>
+                    </td>
+    
+                    </td>
+                    <td>
+                        <spring:url value="vets/{vetId}/delete" var="vetUrlRemove">
+                            <spring:param name="vetId" value="${vet.id}" />
+                        </spring:url>
+                        <a href="${fn:escapeXml(vetUrlRemove)}">Delete Vet</a>
+                    </td>
+                </sec:authorize>
+                </tr>
+            </c:forEach>
         </tbody>
     </table>
     
     <sec:authorize access="hasAuthority('admin')">
-		<a class="btn btn-default" href='<spring:url value="/vets/new" htmlEscape="true"/>'>Add Vet</a>
-	</sec:authorize>
-
+        <a class="btn btn-default" href='<spring:url value="/vets/new" htmlEscape="true"/>'>Add Vet</a>
+    </sec:authorize>
+    
     <table class="table-buttons">
         <tr>
             <td>
-                <a href="<spring:url value="/vets.xml" htmlEscape="true" />">View as XML</a>
-            </td>            
+                <a href="<spring:url value=" /vets.xml" htmlEscape="true" />">View as XML</a>
+            </td>
         </tr>
     </table>
 </petclinic:layout>
