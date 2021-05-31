@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import lombok.var;
+
 @Controller
 public class ReservaController {
 	Logger logger = Logger.getLogger(ReservaController.class.getName());
