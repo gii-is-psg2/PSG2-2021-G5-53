@@ -23,6 +23,8 @@ import org.springframework.jmx.export.annotation.ManagedOperation;
 import org.springframework.jmx.export.annotation.ManagedResource;
 import org.springframework.util.StopWatch;
 
+import lombok.var;
+
 /**
  * Simple aspect that monitors call count and call invocation time. It uses JMX
  * annotations and therefore can be monitored using any JMX console such as the jConsole
