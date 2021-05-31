@@ -9,6 +9,8 @@ import org.springframework.samples.petclinic.repository.ReservaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import lombok.var;
+
 @Service
 public class ReservaService {
 	

@@ -53,6 +53,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/**.xml").authenticated()
 				.antMatchers("/bienvenido").permitAll()
 				.antMatchers("/causes/**").permitAll()
+				.antMatchers("/supportPage").permitAll()
 				.anyRequest().denyAll()
 				.and()
 				 	.formLogin()
