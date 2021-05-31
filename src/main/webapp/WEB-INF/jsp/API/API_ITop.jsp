@@ -21,7 +21,7 @@
         </tr>
         </thead>
         <tbody>
-                 <c:forEach items="${developersInfoList}" var="personInfo">
+                 <c:forEach items="${listaDatos}" var="personInfo">
                  <tr>
                      <td>
                         <c:out value="${personInfo.name}"/>

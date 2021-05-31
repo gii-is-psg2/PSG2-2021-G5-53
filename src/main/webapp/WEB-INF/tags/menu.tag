@@ -55,7 +55,7 @@
                 </petclinic:menuItem>
                 
                  <petclinic:menuItem active="${name eq 'supportPage'}" url="/supportPage" title="supportPage">
-                    <span class="glyphicon glyphicon-signal" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                     <span>Support Page</span>
                 </petclinic:menuItem>
 

@@ -31,35 +31,30 @@ public class APIController {
 				
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.setBasicAuth("admin", "admin");
-		HttpEntity<String> entity = new HttpEntity<String>(httpHeaders);
+		HttpEntity<String> entidad = new HttpEntity<String>(httpHeaders);
 		
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+		ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entidad, String.class);
 		
-		String developersInfo = response.getBody();
+		String datosITop = response.getBody();
 				
-		List<ITopUser> developersInfoList = new ArrayList<>();
+		List<ITopUser> listaDatos = new ArrayList<>();
 		
-		String infoSplitted[] = developersInfo.replace("{\"objects\":{", "").split("},");
+		String informacion[] = datosITop.replace("{\"objects\":{", "").split("},");
 
-		Integer numKeyPersona = 42;
-		for (int i = 0; i < infoSplitted.length-1; i++) {
-			infoSplitted[i]= infoSplitted[i]
-					.replace("\"Person::" + numKeyPersona + "\":{\"code\":0,\"message\":\"\",\"class\":\"Person\",\"key\":\"" + numKeyPersona + "\",\"fields\":", "")
+		Integer idPersona = 42;
+		for (int i = 0; i < informacion.length-1; i++) {
+			informacion[i]= informacion[i]
+					.replace("\"Person::" + idPersona + "\":{\"code\":0,\"message\":\"\",\"class\":\"Person\",\"key\":\"" + idPersona + "\",\"fields\":", "")
 					.replace("{", "").replaceAll("}", "").replaceAll("\"", "").replace("friendlyname:", "").replace("email:", "").replace("phone:", "");
 			
-			String personInfo[] = infoSplitted[i].split(",");
-			developersInfoList.add(new ITopUser(personInfo[0], personInfo[1], personInfo[2]));
+			String personInfo[] = informacion[i].split(",");
+			listaDatos.add(new ITopUser(personInfo[0], personInfo[1], personInfo[2]));
 			
-			numKeyPersona++;
+			idPersona++;
 		}
 		
-		for(int i=0;i<infoSplitted.length;i++) {
-			System.out.println("Tamaño "+ infoSplitted[i]);
-		}
-		
-//		ITopUser developersInfoList = (new ITopUser("admin", "admin@gmail.com", "657555876"));
-		model.put("developersInfoList", developersInfoList);
+		model.put("listaDatos", listaDatos);
 		return "API/API_ITop";
 	}
 
