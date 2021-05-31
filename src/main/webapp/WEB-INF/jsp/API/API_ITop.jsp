@@ -9,33 +9,36 @@
 	uri="http://www.springframework.org/security/tags"%>
 
 <petclinic:layout pageName="support">
-   <h2><fmt:message key="support"/></h2>
+   <h2> Support </h2>
 
     <table id="supportTable" class="table table-striped">
         <thead>
         <tr>
-            <th><fmt:message key="name"/></th>
-            <th><fmt:message key="email"/></th>
-            <th><fmt:message key="telephone"/></th>
+            <th style="width: 150px;">Name</th>
+                <th style="width: 200px;">Email</th>
+                <th style="width: 200px;">Telephone</th>
+                
         </tr>
         </thead>
         <tbody>
+                 <c:forEach items="${developersInfoList}" var="personInfo">
                  <tr>
                      <td>
-                        <c:out value="${developersInfoList.name}"/>
+                        <c:out value="${personInfo.name}"/>
                      </td>
 
                      <td>
-                        <c:out value="${developersInfoList.email}"/>
+                        <c:out value="${personInfo.email}"/>
                      </td>
 
                      <td>
-                         <c:out value="${developersInfoList.phone}"/>
+                         <c:out value="${personInfo.phone}"/>
                      </td>
                  </tr>
+            </c:forEach>
         </tbody>
     </table>
     
-     <p><b><fmt:message key="iTopData"/></b></p>
-    <p><fmt:message key="iTopURLText"/><a href="http://localhost/iTop"><fmt:message key="iTopURL"/></a></p>
+     <p><b>iTop</b></p>
+    <p><a href="http://localhost/Itop/web/pages/UI.php">iTopURL</a></p>
 </petclinic:layout>

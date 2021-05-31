@@ -23,36 +23,42 @@ public class APIController {
 	
 	@GetMapping(value = "/supportPage")
 	public String getiTopInfo(ModelMap model) {
-//		String url = "http://localhost/iTop";
-//				
-//		HttpHeaders httpHeaders = new HttpHeaders();
-//		httpHeaders.setBasicAuth("admin", "admin");
-//		HttpEntity<String> entity = new HttpEntity<String>(httpHeaders);
-//		
-//		RestTemplate restTemplate = new RestTemplate();
-//		ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
-//		
-//		String developersInfo = response.getBody();
-//				
-//		List<ITopUser> developersInfoList = new ArrayList<>();
-//		
-//		String infoSplitted[] = developersInfo.replace("{\"objects\":{", "").split("},");
-//
-//		Integer numKeyPersona = 2;
-//		for (int i = 0; i < infoSplitted.length-1; i++) {
-//			infoSplitted[i]= infoSplitted[i]
-//					.replace("\"Person::" + numKeyPersona + "\":{\"code\":0,\"message\":\"\",\"class\":\"Person\",\"key\":\"" + numKeyPersona + "\",\"fields\":", "")
-//					.replace("{", "").replaceAll("}", "").replaceAll("\"", "").replace("friendlyname:", "").replace("email:", "").replace("phone:", "");
-//			
-//			String personInfo[] = infoSplitted[i].split(",");
-//			developersInfoList.add(new ITopUser(personInfo[0], personInfo[1], personInfo[2]));
-//			
-//			numKeyPersona++;
-//		}
-//		
-//		model.put("developersInfoList", developersInfoList);
+		String url = "http://localhost/Itop/web//webservices/rest.php?version=1.3&json_data={ \"operation\": "
+				+ "\"core/get\", \"class\": \"Person\", \"key\": \"SELECT `Person` FROM Person AS `Person` JOIN Organization AS "
+				+ "`Organization` ON `Person`.org_id = `Organization`.id JOIN Organization AS `Organization1` ON `Organization`"
+				+ ".parent_id BELOW `Organization1`.id WHERE (`Organization1`.`id` = '5')\", \"output_fields\": \"friendlyname, email, "
+				+ "phone\" }";
+				
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.setBasicAuth("admin", "admin");
+		HttpEntity<String> entity = new HttpEntity<String>(httpHeaders);
 		
-		ITopUser developersInfoList = (new ITopUser("admin", "admin@gmail.com", "657555876"));
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+		
+		String developersInfo = response.getBody();
+				
+		List<ITopUser> developersInfoList = new ArrayList<>();
+		
+		String infoSplitted[] = developersInfo.replace("{\"objects\":{", "").split("},");
+
+		Integer numKeyPersona = 42;
+		for (int i = 0; i < infoSplitted.length-1; i++) {
+			infoSplitted[i]= infoSplitted[i]
+					.replace("\"Person::" + numKeyPersona + "\":{\"code\":0,\"message\":\"\",\"class\":\"Person\",\"key\":\"" + numKeyPersona + "\",\"fields\":", "")
+					.replace("{", "").replaceAll("}", "").replaceAll("\"", "").replace("friendlyname:", "").replace("email:", "").replace("phone:", "");
+			
+			String personInfo[] = infoSplitted[i].split(",");
+			developersInfoList.add(new ITopUser(personInfo[0], personInfo[1], personInfo[2]));
+			
+			numKeyPersona++;
+		}
+		
+		for(int i=0;i<infoSplitted.length;i++) {
+			System.out.println("Tamaño "+ infoSplitted[i]);
+		}
+		
+//		ITopUser developersInfoList = (new ITopUser("admin", "admin@gmail.com", "657555876"));
 		model.put("developersInfoList", developersInfoList);
 		return "API/API_ITop";
 	}
